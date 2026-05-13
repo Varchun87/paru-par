@@ -1,0 +1,28 @@
+{
+  "name": "paru-par-festival",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "prebuild": "npm run images:build",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "images:build": "node scripts/build-images.mjs",
+    "lhci": "node scripts/run-lhci.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "motion": "^12.38.0",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@lhci/cli": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "sharp": "latest"
+  }
+}
