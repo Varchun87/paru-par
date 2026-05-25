@@ -1,30 +1,62 @@
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { motion } from 'motion/react';
-import { checkoutProvider, ticketCatalog } from '../checkout';
-import { contacts, faqs, festival, festivalDays, gallery, lineup, lineupTabs, program, zones } from '../content';
+import { campingOffer, checkoutProvider, ticketCatalog } from '../checkout';
+import { contacts, faqs, festival, festivalDays, lineup, lineupTabs, program, type LineupPerson, type Zone, zones } from '../content';
 import { useCountdown, useLineupFilter } from '../hooks';
-import { LazyBackground } from './LazyBackground';
+import { backgroundImage, LazyBackground } from './LazyBackground';
+import { ResponsiveImage } from './ResponsiveImage';
 
 const REPORT_IMAGES = [
-  '/media/photo/DSC02512_resized (1).jpg',
-  '/media/photo/DSC03020_resized (2).jpg',
-  '/media/photo/photo_2026-05-06_13-54-32.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-00.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-02.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-03.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-04.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-05.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-06.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-07.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-08.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-09.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-10.jpg',
+  '/media/karusel/photo_2026-05-25_12-57-11.jpg',
 ];
 
 function DeferredSections() {
   return (
     <>
       <CountdownSection />
-      <DaysSection />
-      <ZonesSection />
-      <ProgramSection />
-      <FeatureCards />
+      <IntroSection />
       <LineupSection />
-      <MediaSection />
-      <TicketsSection />
+      <ZonesSection />
+      <DaysSection />
+      <ProgramSection />
       <FaqSection />
       <ContactsSection />
     </>
+  );
+}
+
+function IntroSection() {
+  return (
+    <SectionShell className="intro-grid">
+      <div className="intro-poster">
+        <span>📍 Локация</span>
+        <strong>Ленинградская<br />область, р-н Мяглово<br />«Мир Озер»</strong>
+        <div className="intro-map-links" aria-label="Открыть адрес фестиваля на карте">
+          <a href={festival.mapUrl} target="_blank" rel="noreferrer">Яндекс.Карты</a>
+          <a href={festival.map2gisUrl} target="_blank" rel="noreferrer">2GIS</a>
+        </div>
+      </div>
+      <div>
+        <h2 className="intro-nature-title">
+          <span>Купайтесь, рыбачьте,</span>
+          <span>гуляйте и наслаждайтесь</span>
+          <span>природой: на территории</span>
+          <span>есть два больших озера</span>
+          <span>и атмосферная экотропа</span>
+          <span>«Звуки леса»</span>
+        </h2>
+      </div>
+    </SectionShell>
   );
 }
 
@@ -46,18 +78,26 @@ const SectionShell = memo(function SectionShell({ children, className = '' }: { 
 
 function CountdownSection() {
   const { daysLeft, progress } = useCountdown();
+  const [reportIndex, setReportIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setReportIndex((index) => (index + 1) % REPORT_IMAGES.length);
+    }, 2000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  const visibleReportImages = REPORT_IMAGES.slice(0, 3).map((_, offset) => REPORT_IMAGES[(reportIndex + offset) % REPORT_IMAGES.length]);
 
   return (
     <SectionShell className="countdown-section">
       <article className="countdown-card">
         <div className="countdown-pattern" aria-hidden="true" />
-        <p className="eyebrow">Осталось до Пару Пар</p>
+        <p className="eyebrow">До легкого пара</p>
         <div className="countdown-circle" style={{ '--progress': `${progress}%` } as React.CSSProperties}>
           <strong>{daysLeft}</strong>
           <span>{daysLeft === 1 ? 'день' : 'дней'}</span>
-        </div>
-        <div className="countdown-scale" aria-label="Шкала обратного отсчета">
-          <span style={{ width: `${progress}%` }} />
         </div>
         <div className="countdown-labels">
           {festivalDays.map((day) => <b key={day.day}>{day.date}</b>)}
@@ -65,11 +105,10 @@ function CountdownSection() {
       </article>
 
       <article className="report-card">
-        <p className="eyebrow">Фотоотчет</p>
+        <a className="eyebrow report-link" href="https://vk.com/event227257672" target="_blank" rel="noreferrer">Фото с прошлого фестиваля</a>
         <div className="polaroids">
-          {REPORT_IMAGES.map((image) => <LazyBackground as="span" image={image} key={image} />)}
+          {visibleReportImages.map((image, index) => <LazyBackground as="span" image={image} key={`${image}-${index}`} eager />)}
         </div>
-        <h3>Как будет выглядеть фестиваль</h3>
       </article>
     </SectionShell>
   );
@@ -79,9 +118,7 @@ function DaysSection() {
   return (
     <SectionShell className="days" >
       <div className="section-head">
-        <p className="eyebrow">Расписание</p>
-        <h2>3 дня в одной локации</h2>
-        <a className="section-link" href="#tickets">Билеты ↗</a>
+        <h2>Расписание</h2>
       </div>
       <div className="day-grid">
         {festivalDays.map((item) => (
@@ -100,22 +137,50 @@ function DaysSection() {
 }
 
 function ZonesSection() {
+  const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
+
+  useEffect(() => {
+    if (!selectedZone) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedZone(null);
+    };
+
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [selectedZone]);
+
   return (
     <SectionShell className="zones" >
       <div className="section-head">
         <p className="eyebrow">Карта фестиваля</p>
-        <h2>Зоны площадки</h2>
+        <h2>Интерактивные зоны</h2>
       </div>
       <div className="zone-grid">
-        {zones.map((zone, index) => (
-          <LazyBackground className={`zone-card ${index === 1 || index === 5 ? 'wide' : ''}`} image={zone.image} key={zone.name}>
-            <span>0{index + 1}</span>
+        {zones.map((zone) => (
+          <button className="zone-card" type="button" style={{ backgroundImage: backgroundImage(zone.image) }} onClick={() => setSelectedZone(zone)} key={zone.name}>
             <h3>{zone.name}</h3>
             <p>{zone.text}</p>
-          </LazyBackground>
+          </button>
         ))}
       </div>
+      {selectedZone ? <ZoneModal zone={selectedZone} onClose={() => setSelectedZone(null)} /> : null}
     </SectionShell>
+  );
+}
+
+function ZoneModal({ zone, onClose }: { zone: Zone; onClose: () => void }) {
+  return (
+    <div className="zone-modal-backdrop" role="presentation" onClick={onClose}>
+      <article className="zone-modal" role="dialog" aria-modal="true" aria-labelledby="zone-modal-title" onClick={(event) => event.stopPropagation()}>
+        <button className="zone-modal-close" type="button" aria-label="Закрыть описание зоны" onClick={onClose}>×</button>
+        <div className="zone-modal-image" style={{ backgroundImage: backgroundImage(zone.image) }} />
+        <div className="zone-modal-content">
+          <h3 id="zone-modal-title">{zone.name}</h3>
+          <p>{zone.text}</p>
+        </div>
+      </article>
+    </div>
   );
 }
 
@@ -126,42 +191,51 @@ function ProgramSection() {
       <div className="split-content">
         <p className="eyebrow">Программа</p>
         <h2>Каждый день собран как отдельный маршрут гостя.</h2>
-        <ul className="program-list">{program.map((item) => <li key={item}>{item}</li>)}</ul>
+        <p className="program-route-copy">Выбери свой маршрут<br />на каждый день</p>
+        <div className="program-downloads" aria-label="Программы по дням">
+          {festivalDays.map((day) => (
+            <button type="button" disabled key={day.day}>
+              <span>{day.date}</span>
+              <small>PDF скоро</small>
+            </button>
+          ))}
+        </div>
       </div>
-    </SectionShell>
-  );
-}
-
-function FeatureCards() {
-  const features = [
-    { title: 'Парные ритуалы', kicker: '01', text: 'Индивидуальные и групповые заходы с разными школами пара.', image: festival.assets.ritual, className: 'tall' },
-    { title: 'Травы и веники', kicker: '02', text: 'Зона заготовки, ароматы, лекции и мастер-классы.', image: festival.assets.brooms },
-    { title: 'Северный маркет', kicker: '03', text: 'Ремесла, текстиль, банная косметика и сувениры.', image: festival.assets.doll },
-  ];
-
-  return (
-    <SectionShell className="feature-row">
-      {features.map((feature) => (
-        <LazyBackground className={`image-card ${feature.className ?? ''}`} image={feature.image} key={feature.title}>
-          <span>{feature.kicker}</span>
-          <h3>{feature.title}</h3>
-          <p>{feature.text}</p>
-        </LazyBackground>
-      ))}
     </SectionShell>
   );
 }
 
 function LineupSection() {
   const { activeCategory, selectCategory } = useLineupFilter();
-  const visibleLineup = useMemo(() => lineup.filter((person) => person.category === activeCategory), [activeCategory]);
+  const [selectedPerson, setSelectedPerson] = useState<LineupPerson | null>(null);
+  const visibleLineup = useMemo(() => {
+    const categoryLineup = lineup.filter((person) => person.category === activeCategory);
+    const knownPeople = categoryLineup.filter((person) => !person.hidden);
+    const placeholders = categoryLineup.filter((person) => person.hidden);
+
+    return [...knownPeople, ...placeholders].slice(0, 5);
+  }, [activeCategory]);
+
+  useEffect(() => {
+    if (!selectedPerson) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedPerson(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [selectedPerson]);
 
   return (
     <SectionShell className="lineup" >
       <div className="section-head">
-        <p className="eyebrow">Выступают на Пару Пар</p>
-        <h2>Участники</h2>
-        <span className="lineup-sticker">line-up</span>
+        <h2>Хэдлайнеры</h2>
       </div>
       <div className="lineup-tabs" aria-label="Категории участников">
         {lineupTabs.map((tab, index) => (
@@ -171,14 +245,15 @@ function LineupSection() {
         ))}
       </div>
       <div className="lineup-grid">
-        {visibleLineup.map((person) => (
-          <article className={`lineup-card ${person.hidden ? 'is-hidden' : ''}`} key={`${person.category}-${person.name}-${person.role}`}>
+        {visibleLineup.map((person, index) => (
+          <button className={`lineup-card ${person.hidden ? 'is-hidden' : ''}`} type="button" disabled={person.hidden} onClick={() => setSelectedPerson(person)} key={`${person.category}-${person.name}-${person.role}-${index}`}>
             <LazyBackground as="div" className="lineup-photo" image={person.image} />
             <h3>{person.name}</h3>
             <p>{person.category} / {person.role}</p>
-          </article>
+          </button>
         ))}
       </div>
+      {selectedPerson ? <LineupModal person={selectedPerson} onClose={() => setSelectedPerson(null)} /> : null}
     </SectionShell>
   );
 }
@@ -187,22 +262,23 @@ function ReactFragment({ children, separator }: { children: React.ReactNode; sep
   return <>{separator ? <i>/</i> : null}{children}</>;
 }
 
-function MediaSection() {
+function LineupModal({ person, onClose }: { person: LineupPerson; onClose: () => void }) {
   return (
-    <SectionShell className="media" >
-      <div className="section-head">
-        <p className="eyebrow">Фото и видео</p>
-        <h2>Медиа-лента фестиваля</h2>
-      </div>
-      <div className="gallery-grid">
-        {gallery.map((item, index) => (
-          <LazyBackground className={`gallery-item ${index === 0 || index === 5 ? 'wide' : ''}`} image={item.image} key={item.title}>
-            <span>{item.type}</span>
-            <h3>{item.title}</h3>
-          </LazyBackground>
-        ))}
-      </div>
-    </SectionShell>
+    <div className="lineup-modal-backdrop" role="presentation" onClick={onClose}>
+      <button className="lineup-modal-close" type="button" aria-label="Закрыть карточку участника" onClick={onClose}>×</button>
+      <article className="lineup-modal" role="dialog" aria-modal="true" aria-labelledby="lineup-modal-title" onClick={(event) => event.stopPropagation()}>
+        <ResponsiveImage className="lineup-modal-image" src={person.image} sizes="(max-width: 720px) 92vw, 520px" alt={person.name} loading="lazy" decoding="async" />
+        <div className="lineup-modal-content">
+          <h3 id="lineup-modal-title">{person.name}</h3>
+          <strong>{person.role}</strong>
+          <hr />
+          <b>7-9 августа</b>
+          <p><span>Программа:</span><br />{person.program}</p>
+          <p>{person.description}</p>
+          <a className="button primary" href={festival.ticketUrl} onClick={onClose}>Билеты</a>
+        </div>
+      </article>
+    </div>
   );
 }
 
@@ -211,23 +287,40 @@ function TicketsSection() {
     <SectionShell className="tickets" >
       <div>
         <p className="eyebrow">Билеты</p>
-        <h2>Билет действует на один день или на весь трехдневный фестиваль.</h2>
+        <h2>Выбери билет на один день, любые два дня или полный фестиваль.</h2>
       </div>
       <div className="ticket-list">
         {ticketCatalog.map((ticket) => (
           <article className="ticket-card" key={ticket.id}>
             <span>{ticket.label}</span>
             <strong>{ticket.price}</strong>
+            <dl className="ticket-prices">
+              <div><dt>Взрослый</dt><dd>{ticket.price}</dd></div>
+              <div><dt>Дети 7-14</dt><dd>{ticket.childPrice}</dd></div>
+              <div><dt>Дети до 7</dt><dd>бесплатно</dd></div>
+            </dl>
             <p>{ticket.description}</p>
             <a className="button primary" href={checkoutProvider.getCheckoutHref(ticket.id)}>Оформить</a>
           </article>
         ))}
+        <article className="ticket-card ticket-card-camping">
+          <span>Палатка</span>
+          <strong>{campingOffer.title}</strong>
+          <dl className="ticket-prices">
+            <div><dt>Сутки</dt><dd>{campingOffer.price}</dd></div>
+            <div><dt>2 суток</dt><dd>{campingOffer.secondPrice}</dd></div>
+          </dl>
+          <p>Отдельное место для палатки на территории фестиваля.</p>
+          <a className="button primary" href={festival.ticketUrl}>Выбрать</a>
+        </article>
       </div>
     </SectionShell>
   );
 }
 
 function FaqSection() {
+  const [openQuestion, setOpenQuestion] = useState<string | null>(null);
+
   return (
     <SectionShell className="faq" >
       <div className="section-head">
@@ -235,8 +328,11 @@ function FaqSection() {
         <h2>Вопросы гостей</h2>
       </div>
       {faqs.map(([question, answer]) => (
-        <details key={question}>
-          <summary>{question}</summary>
+        <details key={question} open={openQuestion === question}>
+          <summary onClick={(event) => {
+            event.preventDefault();
+            setOpenQuestion(openQuestion === question ? null : question);
+          }}>{question}</summary>
           <p>{answer}</p>
         </details>
       ))}
@@ -255,8 +351,9 @@ function ContactsSection() {
         <a href={contacts.vk} target="_blank" rel="noreferrer"><span>VK</span><strong>ВКонтакте</strong></a>
         <a href={contacts.telegram} target="_blank" rel="noreferrer"><span>TG</span><strong>Telegram</strong></a>
         <a href={contacts.phoneHref}><span>Телефон</span><strong>{contacts.phone}</strong></a>
-        <a href={contacts.whatsapp} target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>Написать</strong></a>
+        <a href={contacts.telegram} target="_blank" rel="noreferrer"><span>MAX</span><strong>Написать</strong></a>
       </div>
+      <a className="contact-cta" href={contacts.telegram} target="_blank" rel="noreferrer">По вопросам рекламы и участия жми сюда</a>
     </SectionShell>
   );
 }

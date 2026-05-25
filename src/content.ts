@@ -20,6 +20,8 @@ export type LineupPerson = {
   category: string;
   role: string;
   image: string;
+  program?: string;
+  description?: string;
   hidden?: boolean;
 };
 
@@ -32,12 +34,14 @@ export type GalleryItem = {
 const fallbackFestival = {
   name: 'Пару Пар',
   dates: '7-9 августа 2026',
-  place: 'Загородный парк банных традиций / Московская область',
+  place: '📍Ленинградская область, р-н Мяглово «Мир Озер»',
+  mapUrl: 'https://yandex.ru/maps/?text=%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B3%D1%80%D0%B0%D0%B4%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C%2C%20%D1%80-%D0%BD%20%D0%9C%D1%8F%D0%B3%D0%BB%D0%BE%D0%B2%D0%BE%20%D0%9C%D0%B8%D1%80%20%D0%9E%D0%B7%D0%B5%D1%80',
+  map2gisUrl: 'https://2gis.ru/search/%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B3%D1%80%D0%B0%D0%B4%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C%20%D1%80-%D0%BD%20%D0%9C%D1%8F%D0%B3%D0%BB%D0%BE%D0%B2%D0%BE%20%D0%9C%D0%B8%D1%80%20%D0%9E%D0%B7%D0%B5%D1%80',
   city: 'один город / три дня',
   tagline: 'Три дня жара, музыки, леса и банных ритуалов',
   description:
     'Большой банный фестиваль в одной локации: пар-мастера, сцены, купели, маркет, лекции, чайные круги и вечерняя программа у огня.',
-  ticketUrl: '#tickets',
+  ticketUrl: '/tickets',
   assets: {
     logo: '/media/logo/logo-parupar-red.png',
     hero: '/media/photo/photo_2026-05-06_13-54-29.jpg',
@@ -81,11 +85,17 @@ const fallbackFestivalDays: FestivalDay[] = [
 
 const fallbackZones: Zone[] = [
   { name: 'Главная сцена', text: 'Музыка, ведущие, открытия, вечерняя программа и объявления.', image: '/media/photo/photo_2026-05-06_13-54-28.jpg' },
+  { name: 'Пляж', text: 'Пространство у воды для отдыха, прогулок, встреч и летней фестивальной атмосферы.', image: '/media/photo/photo_2026-05-06_13-54-32.jpg' },
   { name: 'Город пара', text: 'Парные шатры, мастера, церемонии, авторские программы и запись на заходы.', image: '/media/photo/DSC02512_resized (1).jpg' },
-  { name: 'Купели и вода', text: 'Контрастные практики, отдых после жара и безопасное сопровождение.', image: '/media/photo/photo_2026-05-06_13-54-32.jpg' },
-  { name: 'Маркет и ремесла', text: 'Веники, травы, текстиль, банная косметика и сувениры фестиваля.', image: '/media/photo/photo_2024-05-13 22.40.36 (1).jpg' },
-  { name: 'Лекторий', text: 'Разговоры про традиции, тело, травы, печи, безопасность и культуру парения.', image: '/media/photo/photo_2026-05-06_13-54-35.jpg' },
-  { name: 'Чайный двор', text: 'Тихая зона, самовары, травяные сборы и встречи после парной.', image: '/media/photo/photo_2026-05-06_13-54-26.jpg' },
+  { name: 'Чаны и купели', text: 'Контрастные практики, отдых после жара и безопасное сопровождение.', image: '/media/photo/photo_2026-05-06_13-54-32.jpg' },
+  { name: 'Фудкорт', text: 'Горячая еда, напитки, перекусы и уютные точки для отдыха между программами.', image: '/media/photo/photo_2026-05-06_13-54-26.jpg' },
+  { name: 'Ярмарка', text: 'Веники, травы, текстиль, банная косметика и сувениры фестиваля.', image: '/media/photo/photo_2024-05-13 22.40.36 (1).jpg' },
+  { name: 'Лекции и мастер-классы', text: 'Разговоры про традиции, тело, травы, печи, безопасность и культуру парения.', image: '/media/photo/photo_2026-05-06_13-54-35.jpg' },
+  { name: 'Детская зона', text: 'Мягкие активности для детей и семейный отдых в спокойном фестивальном ритме.', image: '/media/photo/DSC03020_resized (2).jpg' },
+  { name: 'Водные активности', text: 'Летние занятия у озера, прогулки и спокойный отдых рядом с водой.', image: '/media/photo/123.jpg' },
+  { name: 'Поляна песен', text: 'Костер, живые голоса, вечерние встречи и песни после насыщенного дня.', image: '/media/photo/photo_2026-05-06_13-54-28.jpg' },
+  { name: 'Выставка бань и комплексов', text: 'Банные проекты, печи, материалы, идеи для своей парной и общение с мастерами.', image: '/media/photo/photo_2026-05-06_13-54-33.jpg' },
+  { name: 'Телесные практики', text: 'Мягкое движение, дыхание, восстановление и бережная настройка тела после пара.', image: '/media/photo/DSC02541_resized (1).jpg' },
 ];
 
 const fallbackProgram = [
@@ -97,17 +107,66 @@ const fallbackProgram = [
   'Ночная купель, чайные круги и тихие практики',
 ];
 
-const fallbackLineupTabs = ['Пармастера', 'Музыканты', 'Телесные практики'] as const;
+const fallbackLineupTabs = ['ПАР-МАСТЕРА', 'АРТИСТЫ', 'СПИКЕРЫ'] as const;
 
 const fallbackLineup: LineupPerson[] = [
-  { name: 'Алексей Север', category: 'Пармастера', role: 'славянский пар', image: '/media/photo/DSC02512_resized (1).jpg' },
-  { name: 'Мария Травница', category: 'Пармастера', role: 'травы и мягкие ритуалы', image: '/media/photo/DSC02541_resized (1).jpg' },
-  { name: 'Музыкант 1', category: 'Музыканты', role: 'вечерняя сцена', image: '/media/photo/photo_2026-05-06_13-54-28.jpg' },
-  { name: 'Музыкант 2', category: 'Музыканты', role: 'акустика у костра', image: '/media/photo/photo_2026-05-06_13-54-26.jpg' },
-  { name: 'Практик 1', category: 'Телесные практики', role: 'дыхание и движение', image: '/media/photo/123.jpg' },
-  { name: 'Практик 2', category: 'Телесные практики', role: 'мягкое восстановление', image: '/media/photo/photo_2024-05-13 22.40.36 (1).jpg' },
-  { name: 'Скоро', category: 'Пармастера', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
-  { name: 'Скоро', category: 'Музыканты', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  {
+    name: 'Алексей Север',
+    category: 'ПАР-МАСТЕРА',
+    role: 'славянский пар',
+    image: '/media/photo/DSC02512_resized (1).jpg',
+    program: 'Коллективное парение, мягкий прогрев и знакомство с традициями славянского пара.',
+    description: 'Пармастер с авторским подходом к работе с жаром, ароматами трав и восстановлением после парной.',
+  },
+  {
+    name: 'Мария Травница',
+    category: 'ПАР-МАСТЕРА',
+    role: 'травы и мягкие ритуалы',
+    image: '/media/photo/DSC02541_resized (1).jpg',
+    program: 'Травяные заходы, ароматные веники и бережные ритуалы восстановления.',
+    description: 'Проводит спокойные парения с фокусом на дыхание, расслабление и силу северных трав.',
+  },
+  {
+    name: 'Музыкант 1',
+    category: 'АРТИСТЫ',
+    role: 'вечерняя сцена',
+    image: '/media/photo/photo_2026-05-06_13-54-28.jpg',
+    program: 'Вечерний сет у костра и живая музыка после банной программы.',
+    description: 'Создает атмосферу теплого фестивального вечера: голос, акустика и песни для общего круга.',
+  },
+  {
+    name: 'Музыкант 2',
+    category: 'АРТИСТЫ',
+    role: 'акустика у костра',
+    image: '/media/photo/photo_2026-05-06_13-54-26.jpg',
+    program: 'Акустическая программа на закате и камерные песни у огня.',
+    description: 'Музыка для отдыха после парений, чайных кругов и встреч на природе.',
+  },
+  {
+    name: 'Практик 1',
+    category: 'СПИКЕРЫ',
+    role: 'дыхание и движение',
+    image: '/media/photo/123.jpg',
+    program: 'Дыхательная практика, мягкое движение и подготовка тела к парению.',
+    description: 'Помогает настроиться на фестивальный ритм и безопасно восстановиться после жара.',
+  },
+  {
+    name: 'Практик 2',
+    category: 'СПИКЕРЫ',
+    role: 'мягкое восстановление',
+    image: '/media/photo/photo_2024-05-13 22.40.36 (1).jpg',
+    program: 'Практика расслабления, телесное внимание и восстановление после насыщенного дня.',
+    description: 'Работает с мягкими форматами, которые подходят гостям без специальной подготовки.',
+  },
+  { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'СПИКЕРЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'СПИКЕРЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'СПИКЕРЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
 ];
 
 const fallbackGallery: GalleryItem[] = [
