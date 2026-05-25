@@ -299,7 +299,7 @@ function LineupSection() {
   return (
     <SectionShell className="lineup" >
       <div className="section-head">
-        <h2>Хэдлайнеры</h2>
+        <h2>Участники</h2>
       </div>
       <div className="lineup-tabs" aria-label="Категории участников">
         {lineupTabs.map((tab, index) => (

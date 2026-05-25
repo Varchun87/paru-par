@@ -55,7 +55,7 @@ export function App() {
   return (
     <>
       <Header />
-      <main className="curtain-page" id="top">
+      <main id="top">
         <Hero />
         <Ticker />
         <ErrorBoundary fallback={<SectionError />}>

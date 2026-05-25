@@ -161,32 +161,6 @@ nav a:hover { color: var(--gold); transform: translateY(-1px); }
 
 .section-full { width: 100%; max-width: none; margin: 0; }
 
-.curtain-page {
-  isolation: isolate;
-}
-
-.curtain-page > .hero,
-.curtain-page > .ticker,
-.curtain-page > .section {
-  position: sticky;
-  top: 0;
-}
-
-.curtain-page > .section {
-  min-height: 100svh;
-}
-
-.curtain-page > .hero { z-index: 1; }
-.curtain-page > .ticker { z-index: 2; }
-.curtain-page > .countdown-section { z-index: 3; }
-.curtain-page > .intro-grid { z-index: 4; }
-.curtain-page > .lineup { z-index: 5; }
-.curtain-page > .zones { z-index: 6; }
-.curtain-page > .days { z-index: 7; }
-.curtain-page > .split { z-index: 8; }
-.curtain-page > .faq { z-index: 9; }
-.curtain-page > .contacts { z-index: 10; }
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1148,15 +1122,17 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 }
 
 .zone-card--body-practices {
-  background-size: 96% auto;
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: center 34%;
+  background-position: center top;
+  background-color: #160d06;
 }
 
 .zone-card--songs {
-  background-size: 98% auto;
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: center 36%;
+  background-position: center center;
+  background-color: #160d06;
 }
 
 .zone-modal-backdrop {
@@ -2177,8 +2153,8 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .ticket-list { grid-template-columns: 1fr; }
   .zone-card { min-height: 250px; aspect-ratio: auto; }
   .zone-card h3 { font-size: clamp(32px, 9vw, 44px); }
-  .zone-card--body-practices { background-size: cover; background-position: center 28%; }
-  .zone-card--songs { background-size: cover; background-position: center 30%; }
+  .zone-card--body-practices { background-size: contain; background-position: center top; }
+  .zone-card--songs { background-size: contain; background-position: center center; }
   .zone-modal { max-height: 90vh; grid-template-rows: minmax(320px, 1fr) auto; }
   .zone-modal-image { min-height: min(58vh, 460px); }
   .zone-modal-content { padding: 18px 22px 24px; }
