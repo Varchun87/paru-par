@@ -1053,7 +1053,17 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .day-card b { width: max-content; margin-top: 18px; padding: 9px 13px; border-radius: 999px; background: var(--red); font-size: 13px; }
 
-.zone-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.zones {
+  overflow: hidden;
+  perspective: 1600px;
+}
+
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  transform-style: preserve-3d;
+}
 
 .zone-card {
   position: relative;
@@ -1074,7 +1084,9 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   text-align: left;
   overflow: hidden;
   box-shadow: var(--shadow);
+  transform-origin: center;
   transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  will-change: transform, opacity, filter;
 }
 
 .zone-card:hover, .day-card:hover, .person-card:hover, .host-card:hover, .gallery-item:hover, .lineup-card:hover .lineup-photo {

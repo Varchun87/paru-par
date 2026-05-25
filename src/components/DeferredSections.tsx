@@ -20,6 +20,40 @@ const REPORT_IMAGES = [
   '/media/karusel/photo_2026-05-25_12-57-11.jpg',
 ];
 
+const zoneCardEntrances = [
+  { x: -260, y: -120, rotate: -12 },
+  { x: 0, y: -220, rotate: 8 },
+  { x: 260, y: -120, rotate: 12 },
+  { x: 320, y: 20, rotate: -8 },
+  { x: -320, y: 40, rotate: 10 },
+  { x: -220, y: 180, rotate: -9 },
+  { x: 220, y: 180, rotate: 9 },
+  { x: 320, y: 120, rotate: -12 },
+];
+
+const zoneGridVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.075, delayChildren: 0.08 } },
+};
+
+const zoneCardVariants = {
+  hidden: (index: number) => ({
+    opacity: 0,
+    scale: 0.82,
+    filter: 'blur(10px)',
+    ...zoneCardEntrances[index % zoneCardEntrances.length],
+  }),
+  visible: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    rotate: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 0.8, ease: 'easeOut' as const },
+  },
+};
+
 function DeferredSections() {
   return (
     <>
@@ -156,13 +190,27 @@ function ZonesSection() {
         <p className="eyebrow">Карта фестиваля</p>
         <h2>Интерактивные зоны</h2>
       </div>
-      <div className="zone-grid">
-        {zones.map((zone) => (
-          <button className="zone-card" type="button" style={{ backgroundImage: backgroundImage(zone.image) }} onClick={() => setSelectedZone(zone)} key={zone.name}>
+      <motion.div
+        className="zone-grid"
+        variants={zoneGridVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.18, margin: '0px 0px -10% 0px' }}
+      >
+        {zones.map((zone, index) => (
+          <motion.button
+            className="zone-card"
+            type="button"
+            custom={index}
+            variants={zoneCardVariants}
+            style={{ backgroundImage: backgroundImage(zone.image) }}
+            onClick={() => setSelectedZone(zone)}
+            key={zone.name}
+          >
             <h3>{zone.name}</h3>
-          </button>
+          </motion.button>
         ))}
-      </div>
+      </motion.div>
       {selectedZone ? <ZoneModal zone={selectedZone} onClose={() => setSelectedZone(null)} /> : null}
     </SectionShell>
   );
