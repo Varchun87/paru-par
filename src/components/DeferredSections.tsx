@@ -113,15 +113,11 @@ export default DeferredSections;
 
 const SectionShell = memo(function SectionShell({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
-    <motion.section
+    <section
       className={`section ${className}`}
-      initial={{ opacity: 0, y: 46 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -18% 0px' }}
-      transition={{ duration: 0.65, ease: 'easeOut' }}
     >
       {children}
-    </motion.section>
+    </section>
   );
 });
 
