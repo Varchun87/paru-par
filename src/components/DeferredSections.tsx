@@ -311,9 +311,8 @@ function LineupSection() {
       <div className="lineup-grid">
         {visibleLineup.map((person, index) => (
           <button className={`lineup-card ${person.hidden ? 'is-hidden' : ''}`} type="button" disabled={person.hidden} onClick={() => setSelectedPerson(person)} key={`${person.category}-${person.name}-${person.role}-${index}`}>
-            <LazyBackground as="div" className="lineup-photo" image={person.image} />
+            <LazyBackground as="div" className={`lineup-photo ${getLineupPhotoClassName(person.name)}`} image={person.image} />
             <h3>{person.name}</h3>
-            <p>{person.category} / {person.role}</p>
           </button>
         ))}
       </div>
@@ -326,6 +325,11 @@ function ReactFragment({ children, separator }: { children: React.ReactNode; sep
   return <>{separator ? <i>/</i> : null}{children}</>;
 }
 
+function getLineupPhotoClassName(personName: string) {
+  if (personName === 'Иван Кузьменко' || personName === 'Елена Румянцева (мам Лена)') return 'lineup-photo--portrait';
+  return '';
+}
+
 function LineupModal({ person, onClose }: { person: LineupPerson; onClose: () => void }) {
   return (
     <div className="lineup-modal-backdrop" role="presentation" onClick={onClose}>
@@ -336,8 +340,7 @@ function LineupModal({ person, onClose }: { person: LineupPerson; onClose: () =>
           <h3 id="lineup-modal-title">{person.name}</h3>
           <strong>{person.role}</strong>
           <hr />
-          <b>7-9 августа</b>
-          <p><span>Программа:</span><br />{person.program}</p>
+          {person.program ? <p>{person.program}</p> : null}
           <p>{person.description}</p>
           <a className="button primary" href={festival.ticketUrl} onClick={onClose}>Билеты</a>
         </div>
