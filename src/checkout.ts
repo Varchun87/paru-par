@@ -5,11 +5,11 @@ export type TicketSku = {
   label: string;
   date: string;
   price: string;
+  priceAmount: number;
   childPrice: string;
+  childPriceAmount: number;
   description: string;
 };
-
-const CHECKOUT_EMAIL = 'hello@paru-par.ru';
 
 export const ticketCatalog: readonly TicketSku[] = [
   {
@@ -17,7 +17,9 @@ export const ticketCatalog: readonly TicketSku[] = [
     label: '1 день',
     date: 'любой 1 день',
     price: '1 800 ₽',
+    priceAmount: 1800,
     childPrice: '900 ₽',
+    childPriceAmount: 900,
     description: 'Билет на один любой день фестиваля: 7, 8 или 9 августа.',
   },
   {
@@ -25,7 +27,9 @@ export const ticketCatalog: readonly TicketSku[] = [
     label: '2 дня',
     date: 'любые 2 дня',
     price: '2 700 ₽',
+    priceAmount: 2700,
     childPrice: '1 350 ₽',
+    childPriceAmount: 1350,
     description: 'Билет на любые два дня фестиваля на выбор гостя.',
   },
   {
@@ -33,7 +37,9 @@ export const ticketCatalog: readonly TicketSku[] = [
     label: '3 дня',
     date: '7-9 августа',
     price: '3 500 ₽',
+    priceAmount: 3500,
     childPrice: '1 750 ₽',
+    childPriceAmount: 1750,
     description: 'Полный трехдневный абонемент на фестиваль.',
   },
 ] as const;
@@ -41,27 +47,9 @@ export const ticketCatalog: readonly TicketSku[] = [
 export const campingOffer = {
   title: 'Место под палатку',
   price: '1 000 ₽ / сутки',
+  priceAmount: 1000,
   secondPrice: '1 300 ₽ / 2 суток',
+  secondPriceAmount: 1300,
 } as const;
 
-export const checkoutProvider = {
-  getCheckoutHref(skuId: TicketSkuId) {
-    const sku = ticketCatalog.find((item) => item.id === skuId);
-    if (!sku) return '#tickets';
-
-    const params = new URLSearchParams({
-      subject: `Билет Пару Пар: ${sku.label}`,
-      body: `Здравствуйте! Хочу оформить билет: ${sku.label}, ${sku.date}, взрослый ${sku.price}, детский 7-14 лет ${sku.childPrice}.`,
-    });
-
-    return `mailto:${CHECKOUT_EMAIL}?${params.toString()}`;
-  },
-  getCampingHref() {
-    const params = new URLSearchParams({
-      subject: 'Пару Пар: место под палатку',
-      body: `Здравствуйте! Хочу оформить ${campingOffer.title}: ${campingOffer.price} или ${campingOffer.secondPrice}.`,
-    });
-
-    return `mailto:${CHECKOUT_EMAIL}?${params.toString()}`;
-  },
-};
+export const checkoutEmail = 'hello@paru-par.ru';

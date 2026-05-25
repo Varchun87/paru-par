@@ -1,5 +1,6 @@
 import { lazy, memo, Suspense, useEffect, useState } from 'react';
-import { campingOffer, checkoutProvider, ticketCatalog } from './checkout';
+import { campingOffer, ticketCatalog, type TicketSkuId } from './checkout';
+import { CheckoutDialog, type CheckoutSelection } from './components/CheckoutDialog';
 import { festival } from './content';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { FloatingVideo } from './components/FloatingVideo';
@@ -77,69 +78,74 @@ function normalizePath(pathname: string) {
 }
 
 function TicketsPage() {
-  return (
-    <main className="tickets-page" id="top">
-      <section className="tickets-hero section-full">
-        <LazyBackground as="div" className="tickets-hero-bg" image={festival.assets.hero} eager />
-        <a className="tickets-page-logo" href="/" aria-label="На главную">
-          <ResponsiveImage src={festival.assets.logo} sizes="260px" alt={festival.name} fetchPriority="high" decoding="async" />
-        </a>
-        <a className="tickets-back" href="/">На главную</a>
-        <div className="tickets-hero-copy">
-          <p className="eyebrow">7-9 августа 2026</p>
-          <h1>Билеты на Пару Пар</h1>
-          <p>Выбери формат участия: один день, два дня, полный фестиваль или место под палатку. Дети до 7 лет проходят бесплатно.</p>
-        </div>
-      </section>
+  const [checkoutSelection, setCheckoutSelection] = useState<CheckoutSelection | null>(null);
 
-      <section className="section ticket-shop" aria-label="Выбор билетов">
-        <div className="ticket-shop-head">
-          <p className="eyebrow">Билеты</p>
-          <h2>Выбери свой формат фестиваля</h2>
-          <p>Все билеты действуют на площадке «Мир Озер»: парения, зоны фестиваля, ярмарка, мастер-классы, музыка у костра и отдых на природе.</p>
-        </div>
-        <div className="ticket-shop-grid">
-          {ticketCatalog.map((ticket) => (
-            <article className="ticket-shop-card" key={ticket.id}>
+  return (
+    <>
+      <main className="tickets-page" id="top">
+        <section className="tickets-hero section-full">
+          <LazyBackground as="div" className="tickets-hero-bg" image={festival.assets.hero} eager />
+          <a className="tickets-page-logo" href="/" aria-label="На главную">
+            <ResponsiveImage src={festival.assets.logo} sizes="260px" alt={festival.name} fetchPriority="high" decoding="async" />
+          </a>
+          <a className="tickets-back" href="/">На главную</a>
+          <div className="tickets-hero-copy">
+            <p className="eyebrow">7-9 августа 2026</p>
+            <h1>Билеты на Пару Пар</h1>
+            <p>Выбери формат участия: один день, два дня, полный фестиваль или место под палатку. Дети до 7 лет проходят бесплатно.</p>
+          </div>
+        </section>
+
+        <section className="section ticket-shop" aria-label="Выбор билетов">
+          <div className="ticket-shop-head">
+            <p className="eyebrow">Билеты</p>
+            <h2>Выбери свой формат фестиваля</h2>
+            <p>Все билеты действуют на площадке «Мир Озер»: парения, зоны фестиваля, ярмарка, мастер-классы, музыка у костра и отдых на природе.</p>
+          </div>
+          <div className="ticket-shop-grid">
+            {ticketCatalog.map((ticket) => (
+              <article className="ticket-shop-card" key={ticket.id}>
+                <div>
+                  <span>{ticket.label}</span>
+                  <h3>{ticket.date}</h3>
+                  <p>{ticket.description}</p>
+                </div>
+                <dl>
+                  <div><dt>Взрослый</dt><dd>{ticket.price}</dd></div>
+                  <div><dt>Дети 7-14 лет</dt><dd>{ticket.childPrice}</dd></div>
+                  <div><dt>Дети до 7 лет</dt><dd>бесплатно</dd></div>
+                </dl>
+                <ul>
+                  <li>Вход на территорию фестиваля</li>
+                  <li>Доступ к общим зонам и программе дня</li>
+                  <li>Ярмарка, лекторий, мастер-классы и музыка</li>
+                </ul>
+                <button className="button primary" type="button" onClick={() => setCheckoutSelection({ kind: 'ticket', ticketId: ticket.id as TicketSkuId })}>Оформить</button>
+              </article>
+            ))}
+            <article className="ticket-shop-card ticket-shop-card-camping">
               <div>
-                <span>{ticket.label}</span>
-                <h3>{ticket.date}</h3>
-                <p>{ticket.description}</p>
+                <span>Палатка</span>
+                <h3>{campingOffer.title}</h3>
+                <p>Для гостей, которые хотят остаться на природе и провести на фестивале больше времени.</p>
               </div>
               <dl>
-                <div><dt>Взрослый</dt><dd>{ticket.price}</dd></div>
-                <div><dt>Дети 7-14 лет</dt><dd>{ticket.childPrice}</dd></div>
-                <div><dt>Дети до 7 лет</dt><dd>бесплатно</dd></div>
+                <div><dt>Сутки</dt><dd>{campingOffer.price}</dd></div>
+                <div><dt>2 суток</dt><dd>{campingOffer.secondPrice}</dd></div>
               </dl>
               <ul>
-                <li>Вход на территорию фестиваля</li>
-                <li>Доступ к общим зонам и программе дня</li>
-                <li>Ярмарка, лекторий, мастер-классы и музыка</li>
+                <li>Место под свою палатку</li>
+                <li>Размещение на территории фестиваля</li>
+                <li>Билет на фестиваль покупается отдельно</li>
               </ul>
-              <a className="button primary" href={checkoutProvider.getCheckoutHref(ticket.id)}>Оформить</a>
+              <button className="button primary" type="button" onClick={() => setCheckoutSelection({ kind: 'camping' })}>Оформить</button>
             </article>
-          ))}
-          <article className="ticket-shop-card ticket-shop-card-camping">
-            <div>
-              <span>Палатка</span>
-              <h3>{campingOffer.title}</h3>
-              <p>Для гостей, которые хотят остаться на природе и провести на фестивале больше времени.</p>
-            </div>
-            <dl>
-              <div><dt>Сутки</dt><dd>{campingOffer.price}</dd></div>
-              <div><dt>2 суток</dt><dd>{campingOffer.secondPrice}</dd></div>
-            </dl>
-            <ul>
-              <li>Место под свою палатку</li>
-              <li>Размещение на территории фестиваля</li>
-              <li>Билет на фестиваль покупается отдельно</li>
-            </ul>
-            <a className="button primary" href={checkoutProvider.getCampingHref()}>Оформить</a>
-          </article>
-        </div>
-      </section>
-      <Footer />
-    </main>
+          </div>
+        </section>
+        <Footer />
+      </main>
+      {checkoutSelection ? <CheckoutDialog selection={checkoutSelection} onClose={() => setCheckoutSelection(null)} /> : null}
+    </>
   );
 }
 
@@ -157,21 +163,22 @@ const legalPages: Record<string, LegalPageContent> = {
       {
         title: 'Какие данные обрабатываются',
         text: [
-          'Сайт не содержит регистрационных форм и не принимает оплату напрямую. При клике по кнопке оформления открывается почтовый клиент пользователя, а данные письма отправляются только по инициативе пользователя.',
-          'В письме пользователь может указать имя, контакты, выбранный билет и другие сведения, необходимые для ответа по заявке.',
+          'При оформлении билета сайт может запросить имя, телефон, email, выбранный тип билета, количество билетов, место под палатку и комментарий пользователя.',
+          'После подключения онлайн-оплаты платежная операция будет выполняться через CloudPayments. Данные банковской карты обрабатываются платежным сервисом и не сохраняются на сайте фестиваля.',
         ],
       },
       {
         title: 'Цели обработки',
         text: [
-          'Ответ на обращение, оформление заявки на билет или место под палатку, информирование о фестивале и организационные коммуникации.',
+          'Ответ на обращение, оформление заявки или оплаты билета, передача оплаченной заявки в amoCRM, информирование о фестивале и организационные коммуникации.',
           'Данные не используются для автоматизированного принятия решений и не продаются третьим лицам.',
         ],
       },
       {
         title: 'Передача третьим лицам',
         text: [
-          'На сайте размещены внешние ссылки на VK, Telegram, Яндекс.Карты и 2GIS. При переходе на эти сервисы применяются их собственные политики обработки данных.',
+          'Для оформления оплаты и учета заявок могут использоваться CloudPayments и amoCRM. После перехода на внешние сервисы или использования их виджетов применяются их собственные политики обработки данных.',
+          'На сайте также размещены внешние ссылки на VK, Telegram, Яндекс.Карты и 2GIS. При переходе на эти сервисы применяются их собственные политики обработки данных.',
           'Передача данных возможна только в случаях, предусмотренных законом, или когда это необходимо для обработки обращения пользователя.',
         ],
       },
@@ -211,7 +218,7 @@ const legalPages: Record<string, LegalPageContent> = {
   },
   '/personal-data-consent': {
     title: 'Согласие на обработку персональных данных',
-    lead: 'Отправляя письмо организатору или переходя к оформлению заявки, пользователь добровольно сообщает данные для связи.',
+    lead: 'Заполняя форму оформления билета, отправляя письмо организатору или переходя к оплате, пользователь добровольно сообщает данные для связи и обработки заявки.',
     sections: [
       {
         title: 'Состав данных',

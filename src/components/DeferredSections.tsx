@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { motion } from 'motion/react';
-import { campingOffer, checkoutProvider, ticketCatalog } from '../checkout';
+import { campingOffer, ticketCatalog } from '../checkout';
 import { contacts, faqs, festival, festivalDays, lineup, lineupTabs, program, type LineupPerson, type Zone, zones } from '../content';
 import { useCountdown, useLineupFilter } from '../hooks';
 import { backgroundImage, LazyBackground } from './LazyBackground';
@@ -300,7 +300,7 @@ function TicketsSection() {
               <div><dt>Дети до 7</dt><dd>бесплатно</dd></div>
             </dl>
             <p>{ticket.description}</p>
-            <a className="button primary" href={checkoutProvider.getCheckoutHref(ticket.id)}>Оформить</a>
+            <a className="button primary" href={festival.ticketUrl}>Оформить</a>
           </article>
         ))}
         <article className="ticket-card ticket-card-camping">

@@ -8,6 +8,8 @@
     "prebuild": "npm run images:build",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
+    "api:start": "node server/index.mjs",
+    "api:dev": "node server/index.mjs",
     "images:build": "node scripts/build-images.mjs",
     "lhci": "node scripts/run-lhci.mjs"
   },

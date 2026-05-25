@@ -5,3 +5,6 @@ tsconfig.tsbuildinfo
 .tmp
 public/generated
 public/media/video/parupar-video-2026.mp4
+server/data
+.env
+server/.env
