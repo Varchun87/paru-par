@@ -254,8 +254,7 @@ function ProgramSection() {
       <LazyBackground as="div" className="split-media" image={festival.assets.wide} />
       <div className="split-content">
         <p className="eyebrow">Программа</p>
-        <h2>Каждый день собран как отдельный маршрут гостя.</h2>
-        <p className="program-route-copy">Выбери свой маршрут<br />на каждый день</p>
+        <h2>Уникальная программа каждый день. Собери свой идеальный маршрут.</h2>
         <div className="program-downloads" aria-label="Программы по дням">
           {festivalDays.map((day) => (
             <button type="button" disabled key={day.day}>

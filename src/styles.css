@@ -1240,7 +1240,7 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin: 0;
+  margin: 28px 0 0;
 }
 
 .program-downloads button {
