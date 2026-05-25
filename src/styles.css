@@ -945,7 +945,7 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .day-card b { width: max-content; margin-top: 18px; padding: 9px 13px; border-radius: 999px; background: var(--red); font-size: 13px; }
 
-.zone-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 245px; gap: 16px; }
+.zone-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 
 .zone-card {
   position: relative;
@@ -955,6 +955,7 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   justify-content: end;
   align-items: flex-start;
   padding: 24px;
+  aspect-ratio: 16 / 9;
   border-radius: 34px;
   background-color: #563015;
   background-size: cover;
@@ -977,9 +978,19 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .zone-card span { color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: .14em; font-weight: 900; }
 
-.zone-card p { max-width: 420px; margin-bottom: 0; font-weight: 800; }
+.zone-card p {
+  max-width: 420px;
+  margin-bottom: 0;
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 800;
+  line-height: 1.25;
+}
 
-.zone-card h3 { margin-bottom: 8px; }
+.zone-card h3 {
+  margin-bottom: 8px;
+  font-size: clamp(24px, 2.15vw, 38px);
+  line-height: 1.02;
+}
 
 .zone-modal-backdrop {
   position: fixed;
@@ -1984,6 +1995,9 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .lineup-card { grid-template-rows: 150px 48px 34px; justify-items: center; }
   .contact-grid { grid-template-columns: 1fr; }
   .ticket-list { grid-template-columns: 1fr; }
+  .zone-card { min-height: 250px; aspect-ratio: auto; }
+  .zone-card h3 { font-size: clamp(32px, 9vw, 44px); }
+  .zone-card p { font-size: 16px; }
   .lineup-modal-backdrop { padding: 18px 12px; }
   .lineup-modal-close { left: 18px; top: auto; bottom: 18px; width: 58px; height: 58px; font-size: 40px; transform: none; }
   .lineup-modal-close:hover { transform: scale(1.04); }
