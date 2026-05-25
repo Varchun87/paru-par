@@ -24,6 +24,13 @@
 
 html { scroll-behavior: smooth; }
 
+@media (min-width: 900px) {
+  html.has-section-snap {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+  }
+}
+
 body {
   margin: 0;
   overflow-x: hidden;
@@ -160,6 +167,13 @@ nav a:hover { color: var(--gold); transform: translateY(-1px); }
 }
 
 .section-full { width: 100%; max-width: none; margin: 0; }
+
+.has-section-snap .snap-page > .hero,
+.has-section-snap .snap-page .section,
+.has-section-snap .site-footer {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
 
 .sr-only {
   position: absolute;

@@ -33,6 +33,12 @@ export function App() {
   const currentPath = normalizePath(window.location.pathname);
   const legalPage = legalPages[currentPath];
   const isTicketsPage = currentPath === '/tickets';
+  const shouldSnapSections = !legalPage && !isTicketsPage;
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('has-section-snap', shouldSnapSections);
+    return () => document.documentElement.classList.remove('has-section-snap');
+  }, [shouldSnapSections]);
 
   if (legalPage) {
     return (
@@ -55,7 +61,7 @@ export function App() {
   return (
     <>
       <Header />
-      <main id="top">
+      <main className="snap-page" id="top">
         <Hero />
         <Ticker />
         <ErrorBoundary fallback={<SectionError />}>
