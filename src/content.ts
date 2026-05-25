@@ -108,7 +108,7 @@ const fallbackProgram = [
   'Ночная купель, чайные круги и тихие практики',
 ];
 
-const fallbackLineupTabs = ['ПАР-МАСТЕРА', 'ПРАКТИКИ', 'АРТИСТЫ', 'СПИКЕРЫ'] as const;
+const fallbackLineupTabs = ['ПАР-МАСТЕРА', 'АРТИСТЫ', 'СПИКЕРЫ'] as const;
 
 const fallbackLineup: LineupPerson[] = [
   {
@@ -137,7 +137,7 @@ const fallbackLineup: LineupPerson[] = [
   },
   {
     name: 'Елена Ладная',
-    category: 'ПРАКТИКИ',
+    category: 'СПИКЕРЫ',
     role: 'гвоздестояние',
     image: '/media/photo/photo_2026-05-26_00-59-15.jpg',
     program: 'Мастер-класс: «Уникальная практика Гвоздестояния».',
@@ -162,9 +162,6 @@ const fallbackLineup: LineupPerson[] = [
   { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
-  { name: 'Скоро', category: 'ПРАКТИКИ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
-  { name: 'Скоро', category: 'ПРАКТИКИ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
-  { name: 'Скоро', category: 'ПРАКТИКИ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
