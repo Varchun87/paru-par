@@ -3,8 +3,11 @@ import { motion } from 'motion/react';
 import { campingOffer, ticketCatalog } from '../checkout';
 import { contacts, faqs, festival, festivalDays, lineup, lineupTabs, program, type LineupPerson, type Zone, zones } from '../content';
 import { useCountdown, useLineupFilter } from '../hooks';
+import { keepShortWords } from '../lib/typography';
 import { backgroundImage, LazyBackground } from './LazyBackground';
 import { ResponsiveImage } from './ResponsiveImage';
+
+const t = keepShortWords;
 
 const REPORT_IMAGES = [
   '/media/karusel/photo_2026-05-25_12-57-00.jpg',
@@ -90,18 +93,18 @@ function IntroSection() {
       <div className="intro-poster">
         <span>📍 Локация</span>
         <strong>Ленинградская<br />область, р-н Мяглово<br />«Мир Озер»</strong>
-        <div className="intro-map-links" aria-label="Открыть адрес фестиваля на карте">
+        <div className="intro-map-links" aria-label={t('Открыть адрес фестиваля на карте')}>
           <a href={festival.mapUrl} target="_blank" rel="noreferrer">Яндекс.Карты</a>
           <a href={festival.map2gisUrl} target="_blank" rel="noreferrer">2GIS</a>
         </div>
       </div>
       <div>
         <h2 className="intro-nature-title">
-          <span>Купайтесь, рыбачьте,</span>
-          <span>гуляйте и наслаждайтесь</span>
-          <span>природой: на территории</span>
-          <span>есть два больших озера</span>
-          <span>и атмосферная экотропа</span>
+          <span>{t('Купайтесь, рыбачьте,')}</span>
+          <span>{t('гуляйте и наслаждайтесь')}</span>
+          <span>{t('природой: на территории')}</span>
+          <span>{t('есть два больших озера')}</span>
+          <span>{t('и атмосферная экотропа')}</span>
           <span>«Звуки леса»</span>
         </h2>
       </div>
@@ -150,7 +153,7 @@ function CountdownSection() {
       </article>
 
       <article className="report-card">
-        <a className="eyebrow report-link" href="https://vk.com/event227257672" target="_blank" rel="noreferrer">Фото с прошлого фестиваля</a>
+        <a className="eyebrow report-link" href="https://vk.com/event227257672" target="_blank" rel="noreferrer">{t('Фото с прошлого фестиваля')}</a>
         <div className="polaroids">
           {visibleReportImages.map((image, index) => <LazyBackground as="span" image={image} key={`${image}-${index}`} eager />)}
         </div>
@@ -199,8 +202,8 @@ function ZonesSection() {
   return (
     <SectionShell className="zones" >
       <div className="section-head">
-        <p className="eyebrow">Карта фестиваля</p>
-        <h2>Интерактивные зоны</h2>
+        <p className="eyebrow">{t('Карта фестиваля')}</p>
+        <h2>{t('Интерактивные зоны')}</h2>
       </div>
       <motion.div
         className="zone-grid"
@@ -254,7 +257,7 @@ function ProgramSection() {
       <LazyBackground as="div" className="split-media" image={festival.assets.wide} />
       <div className="split-content">
         <p className="eyebrow">Программа</p>
-        <h2>Уникальная программа каждый день. Собери свой идеальный маршрут.</h2>
+        <h2>{t('Уникальная программа каждый день. Собери свой идеальный маршрут.')}</h2>
         <div className="program-downloads" aria-label="Программы по дням">
           {festivalDays.map((day) => (
             <button type="button" disabled key={day.day}>
@@ -359,7 +362,7 @@ function TicketsSection() {
     <SectionShell className="tickets" >
       <div>
         <p className="eyebrow">Билеты</p>
-        <h2>Выбери билет на один день, любые два дня или полный фестиваль.</h2>
+        <h2>{t('Выбери билет на один день, любые два дня или полный фестиваль.')}</h2>
       </div>
       <div className="ticket-list">
         {ticketCatalog.map((ticket) => (
@@ -382,7 +385,7 @@ function TicketsSection() {
             <div><dt>Сутки</dt><dd>{campingOffer.price}</dd></div>
             <div><dt>2 суток</dt><dd>{campingOffer.secondPrice}</dd></div>
           </dl>
-          <p>Отдельное место для палатки на территории фестиваля.</p>
+          <p>{t('Отдельное место для палатки на территории фестиваля.')}</p>
           <a className="button primary" href={festival.ticketUrl}>Выбрать</a>
         </article>
       </div>
@@ -396,8 +399,8 @@ function FaqSection() {
   return (
     <SectionShell className="faq" >
       <div className="section-head">
-        <p className="eyebrow">Больше, чем баня</p>
-        <h2>Вопросы гостей</h2>
+        <p className="eyebrow">{t('Больше, чем баня')}</p>
+        <h2>{t('Вопросы гостей')}</h2>
       </div>
       {faqs.map(([question, answer]) => (
         <details key={question} open={openQuestion === question}>
@@ -425,7 +428,7 @@ function ContactsSection() {
         <a href={contacts.phoneHref}><span>Телефон</span><strong>{contacts.phone}</strong></a>
         <a href={contacts.telegram} target="_blank" rel="noreferrer"><span>MAX</span><strong>Написать</strong></a>
       </div>
-      <a className="contact-cta" href={contacts.telegram} target="_blank" rel="noreferrer">По вопросам рекламы и участия жми сюда</a>
+      <a className="contact-cta" href={contacts.telegram} target="_blank" rel="noreferrer">{t('По вопросам рекламы и участия жми сюда')}</a>
     </SectionShell>
   );
 }

@@ -1,4 +1,5 @@
 import { applyCmsWhitelist } from './cms';
+import { applyTextTypography } from './lib/typography';
 
 export type FestivalDay = {
   day: string;
@@ -198,7 +199,7 @@ const fallbackContacts = {
   whatsapp: 'https://wa.me/79110050102',
 } as const;
 
-const content = applyCmsWhitelist({
+const content = applyTextTypography(applyCmsWhitelist({
   festival: fallbackFestival,
   eventStartIso: fallbackEventStartIso,
   countdownStartIso: fallbackCountdownStartIso,
@@ -210,7 +211,7 @@ const content = applyCmsWhitelist({
   gallery: fallbackGallery,
   faqs: fallbackFaqs,
   contacts: fallbackContacts,
-});
+}));
 
 export const festival = content.festival;
 export const eventStartIso = content.eventStartIso;

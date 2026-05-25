@@ -356,6 +356,10 @@ nav a:hover { color: var(--gold); transform: translateY(-1px); }
 
 h1, h2, h3, p { margin-top: 0; }
 
+h1, h2, h3, p, li, summary, dd, dt {
+  text-wrap: pretty;
+}
+
 h1 {
   max-width: 760px;
   font-size: clamp(42px, 7vw, 104px);

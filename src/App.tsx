@@ -7,8 +7,10 @@ import { FloatingVideo } from './components/FloatingVideo';
 import { Header } from './components/Header';
 import { LazyBackground } from './components/LazyBackground';
 import { ResponsiveImage } from './components/ResponsiveImage';
+import { applyTextTypography, keepShortWords } from './lib/typography';
 
 const DeferredSections = lazy(() => import('./components/DeferredSections'));
+const t = keepShortWords;
 
 const TICKER_ITEMS = [
   'КОЛЛЕКТИВНЫЕ ПАРЕНИЯ',
@@ -91,16 +93,16 @@ function TicketsPage() {
           <a className="tickets-back" href="/">На главную</a>
           <div className="tickets-hero-copy">
             <p className="eyebrow">7-9 августа 2026</p>
-            <h1>Билеты на Пару Пар</h1>
-            <p>Выбери формат участия: один день, два дня, полный фестиваль или место под палатку. Дети до 7 лет проходят бесплатно.</p>
+            <h1>{t('Билеты на Пару Пар')}</h1>
+            <p>{t('Выбери формат участия: один день, два дня, полный фестиваль или место под палатку. Дети до 7 лет проходят бесплатно.')}</p>
           </div>
         </section>
 
         <section className="section ticket-shop" aria-label="Выбор билетов">
           <div className="ticket-shop-head">
             <p className="eyebrow">Билеты</p>
-            <h2>Выбери свой формат фестиваля</h2>
-            <p>Все билеты действуют на площадке «Мир Озер»: парения, зоны фестиваля, ярмарка, мастер-классы, музыка у костра и отдых на природе.</p>
+            <h2>{t('Выбери свой формат фестиваля')}</h2>
+            <p>{t('Все билеты действуют на площадке «Мир Озер»: парения, зоны фестиваля, ярмарка, мастер-классы, музыка у костра и отдых на природе.')}</p>
           </div>
           <div className="ticket-shop-grid">
             {ticketCatalog.map((ticket) => (
@@ -116,9 +118,9 @@ function TicketsPage() {
                   <div><dt>Дети до 7 лет</dt><dd>бесплатно</dd></div>
                 </dl>
                 <ul>
-                  <li>Вход на территорию фестиваля</li>
-                  <li>Доступ к общим зонам и программе дня</li>
-                  <li>Ярмарка, лекторий, мастер-классы и музыка</li>
+                  <li>{t('Вход на территорию фестиваля')}</li>
+                  <li>{t('Доступ к общим зонам и программе дня')}</li>
+                  <li>{t('Ярмарка, лекторий, мастер-классы и музыка')}</li>
                 </ul>
                 <button className="button primary" type="button" onClick={() => setCheckoutSelection({ kind: 'ticket', ticketId: ticket.id as TicketSkuId })}>Оформить</button>
               </article>
@@ -127,16 +129,16 @@ function TicketsPage() {
               <div>
                 <span>Палатка</span>
                 <h3>{campingOffer.title}</h3>
-                <p>Для гостей, которые хотят остаться на природе и провести на фестивале больше времени.</p>
+                <p>{t('Для гостей, которые хотят остаться на природе и провести на фестивале больше времени.')}</p>
               </div>
               <dl>
                 <div><dt>Сутки</dt><dd>{campingOffer.price}</dd></div>
                 <div><dt>2 суток</dt><dd>{campingOffer.secondPrice}</dd></div>
               </dl>
               <ul>
-                <li>Место под свою палатку</li>
-                <li>Размещение на территории фестиваля</li>
-                <li>Билет на фестиваль покупается отдельно</li>
+                <li>{t('Место под свою палатку')}</li>
+                <li>{t('Размещение на территории фестиваля')}</li>
+                <li>{t('Билет на фестиваль покупается отдельно')}</li>
               </ul>
               <button className="button primary" type="button" onClick={() => setCheckoutSelection({ kind: 'camping' })}>Оформить</button>
             </article>
@@ -155,7 +157,7 @@ type LegalPageContent = {
   sections: { title: string; text: string[] }[];
 };
 
-const legalPages: Record<string, LegalPageContent> = {
+const legalPages: Record<string, LegalPageContent> = applyTextTypography({
   '/privacy': {
     title: 'Политика конфиденциальности',
     lead: 'Документ описывает, какие данные может получать сайт фестиваля «Пару Пар» и как они используются.',
@@ -241,7 +243,7 @@ const legalPages: Record<string, LegalPageContent> = {
       },
     ],
   },
-};
+});
 
 function LegalPage({ page }: { page: LegalPageContent }) {
   return (
@@ -287,7 +289,7 @@ const Hero = memo(function Hero() {
           Самое долгожданное событие<br />
           для всех, кто любит баню,<br />
           природу, песни у костра, новые<br />
-          знакомства и атмосферу<br />
+          {t('знакомства и атмосферу')}<br />
           большого тёплого праздника.
         </p>
       </div>
@@ -325,7 +327,7 @@ function Footer() {
   return (
     <footer className="site-footer">
       <ResponsiveImage src={festival.assets.logo} sizes="180px" alt={festival.name} loading="lazy" decoding="async" />
-      <p>Банный фестиваль Пару Пар. +7 (911) 005-01-02</p>
+      <p>{t('Банный фестиваль Пару Пар. +7 (911) 005-01-02')}</p>
       <nav className="footer-links" aria-label="Документы сайта">
         <a href="/privacy">Конфиденциальность</a>
         <a href="/cookies">Cookie</a>
@@ -353,7 +355,7 @@ function CookieBanner() {
   return (
     <aside className="cookie-banner" role="region" aria-label="Уведомление о cookie">
       <p>
-        Мы используем только техническое хранение выбора по cookie-баннеру. Аналитика и рекламные пиксели сейчас не подключены.
+        {t('Мы используем только техническое хранение выбора по cookie-баннеру. Аналитика и рекламные пиксели сейчас не подключены.')}
         Подробнее: <a href="/cookies">политика Cookie</a>.
       </p>
       <button type="button" onClick={acceptCookies}>Понятно</button>

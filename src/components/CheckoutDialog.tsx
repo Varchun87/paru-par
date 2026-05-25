@@ -1,5 +1,8 @@
 import { useMemo, useState } from 'react';
 import { campingOffer, checkoutEmail, ticketCatalog, type TicketSkuId } from '../checkout';
+import { keepShortWords } from '../lib/typography';
+
+const t = keepShortWords;
 
 type CheckoutKind = 'ticket' | 'camping';
 
@@ -66,7 +69,7 @@ export function CheckoutDialog({ selection, onClose }: CheckoutDialogProps) {
   const submitOrder = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!hasConsent) {
-      setStatus('Нужно согласие на обработку персональных данных.');
+      setStatus(t('Нужно согласие на обработку персональных данных.'));
       return;
     }
 
@@ -92,7 +95,7 @@ export function CheckoutDialog({ selection, onClose }: CheckoutDialogProps) {
       const order = await response.json();
 
       if (!order.paymentEnabled || !order.publicId) {
-        setStatus('Онлайн-оплата почти готова. Пока можно отправить заявку на email.');
+        setStatus(t('Онлайн-оплата почти готова. Пока можно отправить заявку на email.'));
         return;
       }
 
@@ -110,12 +113,12 @@ export function CheckoutDialog({ selection, onClose }: CheckoutDialogProps) {
         skin: 'mini',
         data: order.data,
       }, {
-        onSuccess: () => setStatus('Оплата прошла. Мы отправим подтверждение и создадим заявку.'),
-        onFail: () => setStatus('Оплата не прошла. Можно попробовать еще раз или отправить заявку на email.'),
+        onSuccess: () => setStatus(t('Оплата прошла. Мы отправим подтверждение и создадим заявку.')),
+        onFail: () => setStatus(t('Оплата не прошла. Можно попробовать еще раз или отправить заявку на email.')),
       });
     } catch (error) {
       console.error(error);
-      setStatus('Онлайн-оплата сейчас недоступна. Отправьте заявку на email, и мы поможем оформить билет.');
+      setStatus(t('Онлайн-оплата сейчас недоступна. Отправьте заявку на email, и мы поможем оформить билет.'));
     } finally {
       setIsSubmitting(false);
     }
@@ -167,7 +170,7 @@ export function CheckoutDialog({ selection, onClose }: CheckoutDialogProps) {
 
           <label className="checkout-consent">
             <input type="checkbox" checked={hasConsent} onChange={(event) => setHasConsent(event.target.checked)} />
-            <span>Согласен с <a href="/personal-data-consent" target="_blank">обработкой персональных данных</a> и <a href="/privacy" target="_blank">политикой конфиденциальности</a>.</span>
+            <span>{t('Согласен с')} <a href="/personal-data-consent" target="_blank">{t('обработкой персональных данных')}</a> и&nbsp;<a href="/privacy" target="_blank">{t('политикой конфиденциальности')}</a>.</span>
           </label>
 
           <div className="checkout-total">Итого: <strong>{amount.toLocaleString('ru-RU')} ₽</strong></div>

@@ -1,3 +1,5 @@
+import { applyTextTypography } from './lib/typography';
+
 export type TicketSkuId = 'one-day-pass' | 'two-day-pass' | 'festival-pass';
 
 export type TicketSku = {
@@ -11,7 +13,7 @@ export type TicketSku = {
   description: string;
 };
 
-export const ticketCatalog: readonly TicketSku[] = [
+export const ticketCatalog: readonly TicketSku[] = applyTextTypography([
   {
     id: 'one-day-pass',
     label: '1 день',
@@ -42,14 +44,14 @@ export const ticketCatalog: readonly TicketSku[] = [
     childPriceAmount: 1750,
     description: 'Полный трехдневный абонемент на фестиваль.',
   },
-] as const;
+] as const);
 
-export const campingOffer = {
+export const campingOffer = applyTextTypography({
   title: 'Место под палатку',
   price: '1 000 ₽ / сутки',
   priceAmount: 1000,
   secondPrice: '1 300 ₽ / 2 суток',
   secondPriceAmount: 1300,
-} as const;
+} as const);
 
 export const checkoutEmail = 'hello@paru-par.ru';
