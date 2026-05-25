@@ -1086,16 +1086,8 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .zone-card span { color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: .14em; font-weight: 900; }
 
-.zone-card p {
-  max-width: 420px;
-  margin-bottom: 0;
-  font-size: clamp(13px, 1vw, 16px);
-  font-weight: 800;
-  line-height: 1.25;
-}
-
 .zone-card h3 {
-  margin-bottom: 8px;
+  margin-bottom: 0;
   font-size: clamp(24px, 2.15vw, 38px);
   line-height: 1.02;
 }
@@ -1113,7 +1105,10 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .zone-modal {
   position: relative;
-  width: min(720px, 100%);
+  width: min(760px, 100%);
+  max-height: min(88vh, 760px);
+  display: grid;
+  grid-template-rows: minmax(360px, 1fr) auto;
   overflow: hidden;
   border-radius: 34px;
   background: var(--cream);
@@ -1122,16 +1117,14 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 }
 
 .zone-modal-image {
-  min-height: 280px;
+  min-height: min(64vh, 500px);
   background-size: cover;
   background-position: center;
 }
 
-.zone-modal-content { padding: clamp(24px, 4vw, 40px); }
+.zone-modal-content { padding: clamp(20px, 3vw, 28px) clamp(26px, 4vw, 40px); }
 
-.zone-modal h3 { color: #130a05; font-size: clamp(34px, 5vw, 64px); text-transform: uppercase; }
-
-.zone-modal p { color: #2b1a0d; font-size: clamp(18px, 2vw, 24px); font-weight: 800; }
+.zone-modal p { margin: 0; color: #2b1a0d; font-size: clamp(18px, 2vw, 24px); font-weight: 850; }
 
 .zone-modal-close {
   position: absolute;
@@ -2105,7 +2098,10 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .ticket-list { grid-template-columns: 1fr; }
   .zone-card { min-height: 250px; aspect-ratio: auto; }
   .zone-card h3 { font-size: clamp(32px, 9vw, 44px); }
-  .zone-card p { font-size: 16px; }
+  .zone-modal { max-height: 90vh; grid-template-rows: minmax(360px, 1fr) auto; }
+  .zone-modal-image { min-height: min(68vh, 520px); }
+  .zone-modal-content { padding: 18px 22px 24px; }
+  .zone-modal p { font-size: 18px; }
   .lineup-modal-backdrop { padding: 18px 12px; }
   .lineup-modal-close { left: 18px; top: auto; bottom: 18px; width: 58px; height: 58px; font-size: 40px; transform: none; }
   .lineup-modal-close:hover { transform: scale(1.04); }

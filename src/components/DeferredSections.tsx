@@ -160,7 +160,6 @@ function ZonesSection() {
         {zones.map((zone) => (
           <button className="zone-card" type="button" style={{ backgroundImage: backgroundImage(zone.image) }} onClick={() => setSelectedZone(zone)} key={zone.name}>
             <h3>{zone.name}</h3>
-            <p>{zone.text}</p>
           </button>
         ))}
       </div>
@@ -172,11 +171,10 @@ function ZonesSection() {
 function ZoneModal({ zone, onClose }: { zone: Zone; onClose: () => void }) {
   return (
     <div className="zone-modal-backdrop" role="presentation" onClick={onClose}>
-      <article className="zone-modal" role="dialog" aria-modal="true" aria-labelledby="zone-modal-title" onClick={(event) => event.stopPropagation()}>
+      <article className="zone-modal" role="dialog" aria-modal="true" aria-label={zone.name} onClick={(event) => event.stopPropagation()}>
         <button className="zone-modal-close" type="button" aria-label="Закрыть описание зоны" onClick={onClose}>×</button>
         <div className="zone-modal-image" style={{ backgroundImage: backgroundImage(zone.image) }} />
         <div className="zone-modal-content">
-          <h3 id="zone-modal-title">{zone.name}</h3>
           <p>{zone.text}</p>
         </div>
       </article>
