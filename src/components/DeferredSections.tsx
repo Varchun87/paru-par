@@ -73,7 +73,7 @@ function DeferredSections() {
 }
 
 function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
+  const [matches, setMatches] = useState(() => (typeof window === 'undefined' ? false : window.matchMedia(query).matches));
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(query);
@@ -186,7 +186,7 @@ function DaysSection() {
 
 function ZonesSection() {
   const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
-  const shouldAnimateCards = useMediaQuery('(min-width: 961px)');
+  const shouldAnimateCards = useMediaQuery('(min-width: 1025px)');
 
   useEffect(() => {
     if (!selectedZone) return;

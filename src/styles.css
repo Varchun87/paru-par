@@ -1126,17 +1126,13 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 }
 
 .zone-card--body-practices {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-color: #160d06;
+  background-size: cover;
+  background-position: center 42%;
 }
 
 .zone-card--songs {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-color: #160d06;
+  background-size: cover;
+  background-position: center 52%;
 }
 
 .zone-modal-backdrop {
@@ -2150,8 +2146,8 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .ticket-list { grid-template-columns: 1fr; }
   .zone-card { min-height: 250px; aspect-ratio: auto; }
   .zone-card h3 { font-size: clamp(32px, 9vw, 44px); }
-  .zone-card--body-practices { background-size: contain; background-position: center top; }
-  .zone-card--songs { background-size: contain; background-position: center center; }
+  .zone-card--body-practices { background-size: cover; background-position: center 42%; }
+  .zone-card--songs { background-size: cover; background-position: center 52%; }
   .zone-modal { max-height: 90vh; grid-template-rows: minmax(320px, 1fr) auto; }
   .zone-modal-image { min-height: min(58vh, 460px); }
   .zone-modal-content { padding: 18px 22px 24px; }
