@@ -326,7 +326,14 @@ function ReactFragment({ children, separator }: { children: React.ReactNode; sep
 }
 
 function getLineupPhotoClassName(personName: string) {
-  if (personName === 'Иван Кузьменко' || personName === 'Елена Румянцева (мам Лена)') return 'lineup-photo--portrait';
+  if ([
+    'Иван Кузьменко',
+    'Елена Румянцева (мам Лена)',
+    'Роман Олейник',
+    'Елена Ладная',
+    'DJ Виталий Маслов',
+    'Дмитриева Елена',
+  ].includes(personName)) return 'lineup-photo--portrait';
   return '';
 }
 

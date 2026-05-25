@@ -107,7 +107,7 @@ const fallbackProgram = [
   'Ночная купель, чайные круги и тихие практики',
 ];
 
-const fallbackLineupTabs = ['ПАР-МАСТЕРА', 'АРТИСТЫ', 'СПИКЕРЫ'] as const;
+const fallbackLineupTabs = ['ПАР-МАСТЕРА', 'ПРАКТИКИ', 'АРТИСТЫ', 'СПИКЕРЫ'] as const;
 
 const fallbackLineup: LineupPerson[] = [
   {
@@ -127,6 +127,22 @@ const fallbackLineup: LineupPerson[] = [
     description: 'Ладодея, парМастер, потомственная ведунья. Мастер и сертифицированный специалист в области парения. Практикующий специалист по обучению различным энергетическим практикам. Автор и ведущей телесноориентированных программ в области банного мастерства.',
   },
   {
+    name: 'Роман Олейник',
+    category: 'ПАР-МАСТЕРА',
+    role: 'пармастер',
+    image: '/media/photo/photo_2026-05-26_00-59-12.jpg',
+    program: 'Проект «Шоу Баня Мистера Лейкина».',
+    description: 'Один из самых ярких пармастеров, который погружает гостей в удивительные сюжеты и держит внимание до самого финала.',
+  },
+  {
+    name: 'Елена Ладная',
+    category: 'ПРАКТИКИ',
+    role: 'гвоздестояние',
+    image: '/media/photo/photo_2026-05-26_00-59-15.jpg',
+    program: 'Мастер-класс: «Уникальная практика Гвоздестояния».',
+    description: 'Готовы проверить свои границы? Всего один шаг может изменить вашу жизнь навсегда. Гвоздестояние - это не просто испытание, это путь к осознанию собственной силы и возможностей.',
+  },
+  {
     name: 'Музыкант 1',
     category: 'АРТИСТЫ',
     role: 'вечерняя сцена',
@@ -143,12 +159,28 @@ const fallbackLineup: LineupPerson[] = [
     description: 'Музыка для отдыха после парений, чайных кругов и встреч на природе.',
   },
   {
+    name: 'DJ Виталий Маслов',
+    category: 'АРТИСТЫ',
+    role: 'Ecstatic Dance',
+    image: '/media/photo/photo_2026-05-26_00-59-25.jpg',
+    program: 'Практика свободного танца Ecstatic Dance.',
+    description: 'Ecstatic Dance - это свобода движения на чистом сознании под разную музыку: глубокий эмбиент, этно-хаус, электронные огненные ритмы. В сет будут вплетены живые инструменты - ханг, джембе, шаманский бубен и природные звуки вокруг. Мы создадим безопасное пространство без правил, оценок и стимуляторов, где не обязательно танцевать красиво. Главное быть настоящим.',
+  },
+  {
     name: 'Практик 1',
     category: 'СПИКЕРЫ',
     role: 'дыхание и движение',
     image: '/media/photo/123.jpg',
     program: 'Дыхательная практика, мягкое движение и подготовка тела к парению.',
     description: 'Помогает настроиться на фестивальный ритм и безопасно восстановиться после жара.',
+  },
+  {
+    name: 'Дмитриева Елена',
+    category: 'СПИКЕРЫ',
+    role: 'психолог, коуч',
+    image: '/media/photo/photo_2026-05-26_00-59-31.jpg',
+    program: '«ГУАША: СЕКРЕТ СИЯНИЯ ДРЕВНИХ ИМПЕРАТРИЦ».',
+    description: 'Психолог, мастер-коуч, executive-коуч, специалист по эриксоновскому гипнозу и генеративному коучингу, игропрактик, бизнес-тренер.',
   },
   {
     name: 'Практик 2',
@@ -161,6 +193,9 @@ const fallbackLineup: LineupPerson[] = [
   { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'ПАР-МАСТЕРА', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'ПРАКТИКИ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'ПРАКТИКИ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
+  { name: 'Скоро', category: 'ПРАКТИКИ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
   { name: 'Скоро', category: 'АРТИСТЫ', role: 'новый участник', image: '/media/people/unknown.svg', hidden: true },
