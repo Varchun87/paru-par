@@ -342,7 +342,6 @@ function LineupModal({ person, onClose }: { person: LineupPerson; onClose: () =>
           <hr />
           {person.program ? <p>{person.program}</p> : null}
           <p>{person.description}</p>
-          <a className="button primary" href={festival.ticketUrl} onClick={onClose}>Билеты</a>
         </div>
       </article>
     </div>
