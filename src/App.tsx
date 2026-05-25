@@ -29,9 +29,27 @@ const TICKER_ITEMS = [
 ];
 
 export function App() {
-  const isTicketsPage = normalizePath(window.location.pathname) === '/tickets';
+  const currentPath = normalizePath(window.location.pathname);
+  const legalPage = legalPages[currentPath];
+  const isTicketsPage = currentPath === '/tickets';
 
-  if (isTicketsPage) return <TicketsPage />;
+  if (legalPage) {
+    return (
+      <>
+        <LegalPage page={legalPage} />
+        <CookieBanner />
+      </>
+    );
+  }
+
+  if (isTicketsPage) {
+    return (
+      <>
+        <TicketsPage />
+        <CookieBanner />
+      </>
+    );
+  }
 
   return (
     <>
@@ -48,6 +66,7 @@ export function App() {
       <Footer />
       <FloatingVideo />
       <ScrollTopButton />
+      <CookieBanner />
     </>
   );
 }
@@ -124,6 +143,122 @@ function TicketsPage() {
   );
 }
 
+type LegalPageContent = {
+  title: string;
+  lead: string;
+  sections: { title: string; text: string[] }[];
+};
+
+const legalPages: Record<string, LegalPageContent> = {
+  '/privacy': {
+    title: 'Политика конфиденциальности',
+    lead: 'Документ описывает, какие данные может получать сайт фестиваля «Пару Пар» и как они используются.',
+    sections: [
+      {
+        title: 'Какие данные обрабатываются',
+        text: [
+          'Сайт не содержит регистрационных форм и не принимает оплату напрямую. При клике по кнопке оформления открывается почтовый клиент пользователя, а данные письма отправляются только по инициативе пользователя.',
+          'В письме пользователь может указать имя, контакты, выбранный билет и другие сведения, необходимые для ответа по заявке.',
+        ],
+      },
+      {
+        title: 'Цели обработки',
+        text: [
+          'Ответ на обращение, оформление заявки на билет или место под палатку, информирование о фестивале и организационные коммуникации.',
+          'Данные не используются для автоматизированного принятия решений и не продаются третьим лицам.',
+        ],
+      },
+      {
+        title: 'Передача третьим лицам',
+        text: [
+          'На сайте размещены внешние ссылки на VK, Telegram, Яндекс.Карты и 2GIS. При переходе на эти сервисы применяются их собственные политики обработки данных.',
+          'Передача данных возможна только в случаях, предусмотренных законом, или когда это необходимо для обработки обращения пользователя.',
+        ],
+      },
+      {
+        title: 'Контакты оператора',
+        text: [
+          'По вопросам обработки персональных данных можно написать на hello@paru-par.ru или связаться по телефону +7 (911) 005-01-02.',
+          'Перед публикацией домена и запуском рекламы нужно заменить это описание на полные юридические реквизиты оператора персональных данных.',
+        ],
+      },
+    ],
+  },
+  '/cookies': {
+    title: 'Политика Cookie',
+    lead: 'Сайт использует минимальное техническое хранение данных, чтобы запомнить выбор пользователя по cookie-баннеру.',
+    sections: [
+      {
+        title: 'Что используется сейчас',
+        text: [
+          'Сайт не подключает Яндекс.Метрику, рекламные пиксели и другие аналитические cookies.',
+          'После принятия баннера в браузере сохраняется техническая отметка согласия `parupar_cookie_consent`. Она нужна только для того, чтобы не показывать баннер повторно.',
+        ],
+      },
+      {
+        title: 'Сторонние сайты',
+        text: [
+          'При переходе по ссылкам на VK, Telegram, карты или почтовый клиент пользователь покидает сайт фестиваля. Эти сервисы могут использовать собственные cookies и технологии отслеживания.',
+        ],
+      },
+      {
+        title: 'Как отключить',
+        text: [
+          'Пользователь может очистить данные сайта в настройках браузера. После очистки cookie-баннер появится снова.',
+        ],
+      },
+    ],
+  },
+  '/personal-data-consent': {
+    title: 'Согласие на обработку персональных данных',
+    lead: 'Отправляя письмо организатору или переходя к оформлению заявки, пользователь добровольно сообщает данные для связи.',
+    sections: [
+      {
+        title: 'Состав данных',
+        text: [
+          'Имя, контактный телефон или email, выбранный формат участия, текст обращения и иные данные, которые пользователь сам указывает в письме.',
+        ],
+      },
+      {
+        title: 'Цели обработки',
+        text: [
+          'Обработка заявки, обратная связь, уточнение деталей участия, информирование о билетах, программе и организационных вопросах фестиваля.',
+        ],
+      },
+      {
+        title: 'Срок и отзыв согласия',
+        text: [
+          'Согласие действует до достижения целей обработки или до его отзыва пользователем.',
+          'Отозвать согласие можно письмом на hello@paru-par.ru.',
+        ],
+      },
+    ],
+  },
+};
+
+function LegalPage({ page }: { page: LegalPageContent }) {
+  return (
+    <main className="legal-page" id="top">
+      <a className="tickets-page-logo" href="/" aria-label="На главную">
+        <ResponsiveImage src={festival.assets.logo} sizes="260px" alt={festival.name} fetchPriority="high" decoding="async" />
+      </a>
+      <a className="tickets-back" href="/">На главную</a>
+      <section className="section legal-content">
+        <p className="eyebrow">Документы сайта</p>
+        <h1>{page.title}</h1>
+        <p className="legal-lead">{page.lead}</p>
+        {page.sections.map((section) => (
+          <article key={section.title}>
+            <h2>{section.title}</h2>
+            {section.text.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </article>
+        ))}
+      </section>
+      <Footer />
+    </main>
+  );
+}
+
 const Hero = memo(function Hero() {
   return (
     <section className="hero section-full">
@@ -184,8 +319,38 @@ function Footer() {
     <footer className="site-footer">
       <ResponsiveImage src={festival.assets.logo} sizes="180px" alt={festival.name} loading="lazy" decoding="async" />
       <p>Банный фестиваль Пару Пар. +7 (911) 005-01-02</p>
-      <a href="#top">Наверх</a>
+      <nav className="footer-links" aria-label="Документы сайта">
+        <a href="/privacy">Конфиденциальность</a>
+        <a href="/cookies">Cookie</a>
+        <a href="/personal-data-consent">Персональные данные</a>
+        <a href="#top">Наверх</a>
+      </nav>
     </footer>
+  );
+}
+
+function CookieBanner() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(window.localStorage.getItem('parupar_cookie_consent') !== 'accepted-v1');
+  }, []);
+
+  if (!isVisible) return null;
+
+  const acceptCookies = () => {
+    window.localStorage.setItem('parupar_cookie_consent', 'accepted-v1');
+    setIsVisible(false);
+  };
+
+  return (
+    <aside className="cookie-banner" role="region" aria-label="Уведомление о cookie">
+      <p>
+        Мы используем только техническое хранение выбора по cookie-баннеру. Аналитика и рекламные пиксели сейчас не подключены.
+        Подробнее: <a href="/cookies">политика Cookie</a>.
+      </p>
+      <button type="button" onClick={acceptCookies}>Понятно</button>
+    </aside>
   );
 }
 
