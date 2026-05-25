@@ -69,6 +69,21 @@ function DeferredSections() {
   );
 }
 
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const updateMatches = () => setMatches(mediaQuery.matches);
+
+    updateMatches();
+    mediaQuery.addEventListener('change', updateMatches);
+    return () => mediaQuery.removeEventListener('change', updateMatches);
+  }, [query]);
+
+  return matches;
+}
+
 function IntroSection() {
   return (
     <SectionShell className="intro-grid">
@@ -172,6 +187,7 @@ function DaysSection() {
 
 function ZonesSection() {
   const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
+  const shouldAnimateCards = useMediaQuery('(min-width: 961px)');
 
   useEffect(() => {
     if (!selectedZone) return;
@@ -192,17 +208,17 @@ function ZonesSection() {
       </div>
       <motion.div
         className="zone-grid"
-        variants={zoneGridVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.18, margin: '0px 0px -10% 0px' }}
+        variants={shouldAnimateCards ? zoneGridVariants : undefined}
+        initial={shouldAnimateCards ? 'hidden' : false}
+        whileInView={shouldAnimateCards ? 'visible' : undefined}
+        viewport={shouldAnimateCards ? { once: false, amount: 0.18, margin: '0px 0px -10% 0px' } : undefined}
       >
         {zones.map((zone, index) => (
           <motion.button
-            className="zone-card"
+            className={`zone-card ${getZoneCardClassName(zone.name)}`}
             type="button"
             custom={index}
-            variants={zoneCardVariants}
+            variants={shouldAnimateCards ? zoneCardVariants : undefined}
             style={{ backgroundImage: backgroundImage(zone.image) }}
             onClick={() => setSelectedZone(zone)}
             key={zone.name}
@@ -214,6 +230,12 @@ function ZonesSection() {
       {selectedZone ? <ZoneModal zone={selectedZone} onClose={() => setSelectedZone(null)} /> : null}
     </SectionShell>
   );
+}
+
+function getZoneCardClassName(zoneName: string) {
+  if (zoneName === 'Телесные практики') return 'zone-card--body-practices';
+  if (zoneName === 'Поляна песен') return 'zone-card--songs';
+  return '';
 }
 
 function ZoneModal({ zone, onClose }: { zone: Zone; onClose: () => void }) {

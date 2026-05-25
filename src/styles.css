@@ -1118,6 +1118,18 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   line-height: 1.02;
 }
 
+.zone-card--body-practices {
+  background-size: 96% auto;
+  background-repeat: no-repeat;
+  background-position: center 34%;
+}
+
+.zone-card--songs {
+  background-size: 98% auto;
+  background-repeat: no-repeat;
+  background-position: center 36%;
+}
+
 .zone-modal-backdrop {
   position: fixed;
   z-index: 80;
@@ -1150,7 +1162,13 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .zone-modal-content { padding: clamp(20px, 3vw, 28px) clamp(26px, 4vw, 40px); }
 
-.zone-modal p { margin: 0; color: #2b1a0d; font-size: clamp(18px, 2vw, 24px); font-weight: 850; }
+.zone-modal p {
+  margin: 0;
+  color: #2b1a0d;
+  font-size: clamp(16px, 1.45vw, 20px);
+  font-weight: 850;
+  line-height: 1.34;
+}
 
 .zone-modal-close {
   position: absolute;
@@ -2082,6 +2100,8 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .lineup-grid { grid-template-columns: repeat(3, 1fr); }
   .contact-grid { grid-template-columns: repeat(2, 1fr); }
   .ticket-shop-grid { grid-template-columns: 1fr; }
+  .countdown-section { padding-bottom: 34px; }
+  .intro-grid { padding-top: 34px; }
   .feature-row, .host-grid { grid-template-columns: 1fr; }
   .gallery-item.wide, .zone-card.wide { grid-column: span 1; }
   .site-footer { grid-template-columns: 1fr; }
@@ -2116,6 +2136,8 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .intro-poster { min-height: 300px; padding: 24px; }
   .intro-poster strong { font-size: clamp(30px, 9vw, 42px); line-height: 1.18; }
   .intro-grid, .countdown-section, .days, .zones, .split, .lineup, .people, .tickets, .faq, .contacts { padding-top: 58px; padding-bottom: 58px; }
+  .countdown-section { padding-bottom: 18px; }
+  .intro-grid { padding-top: 20px; }
   .day-grid, .zone-grid, .people-grid, .gallery-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-auto-rows: 250px; }
   .lineup-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2124,10 +2146,12 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .ticket-list { grid-template-columns: 1fr; }
   .zone-card { min-height: 250px; aspect-ratio: auto; }
   .zone-card h3 { font-size: clamp(32px, 9vw, 44px); }
-  .zone-modal { max-height: 90vh; grid-template-rows: minmax(360px, 1fr) auto; }
-  .zone-modal-image { min-height: min(68vh, 520px); }
+  .zone-card--body-practices { background-size: cover; background-position: center 28%; }
+  .zone-card--songs { background-size: cover; background-position: center 30%; }
+  .zone-modal { max-height: 90vh; grid-template-rows: minmax(320px, 1fr) auto; }
+  .zone-modal-image { min-height: min(58vh, 460px); }
   .zone-modal-content { padding: 18px 22px 24px; }
-  .zone-modal p { font-size: 18px; }
+  .zone-modal p { font-size: 16px; line-height: 1.32; }
   .lineup-modal-backdrop { padding: 18px 12px; }
   .lineup-modal-close { left: 18px; top: auto; bottom: 18px; width: 58px; height: 58px; font-size: 40px; transform: none; }
   .lineup-modal-close:hover { transform: scale(1.04); }
