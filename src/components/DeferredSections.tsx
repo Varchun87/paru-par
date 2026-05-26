@@ -1,4 +1,5 @@
 import { memo, useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'motion/react';
 import { campingOffer, ticketCatalog } from '../checkout';
 import { contacts, faqs, festival, festivalDays, lineup, lineupTabs, program, type LineupPerson, type Zone, zones } from '../content';
@@ -266,7 +267,7 @@ function getZoneCardClassName(zoneName: string) {
 }
 
 function ZoneModal({ zone, onClose }: { zone: Zone; onClose: () => void }) {
-  return (
+  return createPortal(
     <div className="zone-modal-backdrop" role="presentation" onClick={onClose}>
       <article className="zone-modal" role="dialog" aria-modal="true" aria-label={zone.name} onClick={(event) => event.stopPropagation()}>
         <button className="zone-modal-close" type="button" aria-label="Закрыть описание зоны" onClick={onClose}>×</button>
@@ -275,7 +276,8 @@ function ZoneModal({ zone, onClose }: { zone: Zone; onClose: () => void }) {
           <p>{zone.text}</p>
         </div>
       </article>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
@@ -366,7 +368,7 @@ function getLineupPhotoClassName(personName: string) {
 }
 
 function LineupModal({ person, onClose }: { person: LineupPerson; onClose: () => void }) {
-  return (
+  return createPortal(
     <div className="lineup-modal-backdrop" role="presentation" onClick={onClose}>
       <button className="lineup-modal-close" type="button" aria-label="Закрыть карточку участника" onClick={onClose}>×</button>
       <article className="lineup-modal" role="dialog" aria-modal="true" aria-labelledby="lineup-modal-title" onClick={(event) => event.stopPropagation()}>
@@ -379,7 +381,8 @@ function LineupModal({ person, onClose }: { person: LineupPerson; onClose: () =>
           <p>{person.description}</p>
         </div>
       </article>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

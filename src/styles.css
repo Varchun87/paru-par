@@ -1168,6 +1168,8 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .zone-modal-content { padding: clamp(20px, 3vw, 28px) clamp(26px, 4vw, 40px); }
 
+.zone-modal-content { overflow: auto; }
+
 .zone-modal p {
   margin: 0;
   color: #2b1a0d;
@@ -2153,9 +2155,10 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .zone-card h3 { font-size: clamp(32px, 9vw, 44px); }
   .zone-card--body-practices { background-size: cover; background-position: center 42%; }
   .zone-card--songs { background-size: cover; background-position: center 52%; }
-  .zone-modal { max-height: 90vh; grid-template-rows: minmax(320px, 1fr) auto; }
-  .zone-modal-image { min-height: min(58vh, 460px); }
-  .zone-modal-content { padding: 18px 22px 24px; }
+  .zone-modal-backdrop { padding: 12px; align-items: center; }
+  .zone-modal { width: calc(100vw - 24px); max-height: calc(100dvh - 24px); grid-template-rows: minmax(180px, 38dvh) minmax(0, auto); border-radius: 28px; }
+  .zone-modal-image { min-height: 0; height: 100%; }
+  .zone-modal-content { max-height: 42dvh; padding: 18px 22px 24px; }
   .zone-modal p { font-size: 16px; line-height: 1.32; }
   .lineup-modal-backdrop { padding: 18px 12px; }
   .lineup-modal-close { left: 18px; top: auto; bottom: 18px; width: 58px; height: 58px; font-size: 40px; transform: none; }
