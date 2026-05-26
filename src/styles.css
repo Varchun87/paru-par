@@ -1137,11 +1137,11 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .zone-modal-backdrop {
   position: fixed;
-  z-index: 80;
+  z-index: 100;
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: clamp(14px, 3vw, 28px);
   background: rgba(8, 5, 3, .78);
   backdrop-filter: blur(10px);
 }
@@ -1418,11 +1418,11 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .lineup-modal-backdrop {
   position: fixed;
-  z-index: 80;
+  z-index: 100;
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 42px 18px;
+  padding: clamp(14px, 4vw, 42px) 18px;
   background: rgba(247, 244, 235, .94);
   color: #110b06;
 }
@@ -1729,23 +1729,24 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .contacts {
   background: #080503;
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding-top: 52px;
+  padding-bottom: 52px;
 }
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(160px, 240px));
+  justify-content: center;
+  gap: 12px;
 }
 
 .contact-grid a {
-  min-height: 160px;
+  min-height: 106px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 22px;
-  border-radius: 34px;
+  padding: 16px 18px;
+  border-radius: 24px;
   background:
     radial-gradient(circle at 80% 15%, rgba(218, 124, 0, .3), transparent 12rem),
     linear-gradient(135deg, #21140b, #0f0804);
@@ -1755,7 +1756,7 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 }
 
 .contact-grid a:hover {
-  transform: translateY(-8px);
+  transform: translateY(-5px);
   border-color: rgba(218, 124, 0, .5);
   box-shadow: var(--shadow-strong);
 }
@@ -1764,18 +1765,18 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   color: var(--gold);
   text-transform: uppercase;
   letter-spacing: .14em;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 950;
 }
 
 .contact-grid strong {
   color: var(--cream);
-  font-size: clamp(22px, 2.4vw, 34px);
-  line-height: var(--leading);
+  font-size: clamp(18px, 1.65vw, 25px);
+  line-height: 1.08;
   letter-spacing: var(--tracking);
 }
 
-.contact-grid a:nth-child(3) strong { white-space: nowrap; font-size: clamp(20px, 2vw, 28px); }
+.contact-grid a:nth-child(3) strong { white-space: nowrap; font-size: clamp(17px, 1.45vw, 22px); }
 
 .contact-cta {
   width: fit-content;
@@ -2099,7 +2100,7 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .gallery-grid { grid-auto-rows: 240px; }
   .zone-grid { grid-template-columns: repeat(2, 1fr); }
   .lineup-grid { grid-template-columns: repeat(3, minmax(150px, 184px)); gap: 28px; justify-content: center; }
-  .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-grid { grid-template-columns: repeat(2, minmax(160px, 240px)); }
   .ticket-shop-grid { grid-template-columns: 1fr; }
   .countdown-section { padding-bottom: 34px; }
   .intro-grid { padding-top: 34px; }
@@ -2145,6 +2146,7 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .lineup-card { grid-template-rows: auto auto; justify-items: center; }
   .lineup-photo { max-width: min(184px, 100%); }
   .contact-grid { grid-template-columns: 1fr; }
+  .contact-grid a { min-height: 92px; border-radius: 22px; }
   .ticket-list { grid-template-columns: 1fr; }
   .zone-card { min-height: 250px; aspect-ratio: auto; }
   .zone-card h3 { font-size: clamp(32px, 9vw, 44px); }

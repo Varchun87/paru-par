@@ -87,6 +87,32 @@ function useMediaQuery(query: string) {
   return matches;
 }
 
+function useBodyScrollLock(isLocked: boolean) {
+  useEffect(() => {
+    if (!isLocked) return;
+
+    const scrollY = window.scrollY;
+    const { body } = document;
+    const previousPosition = body.style.position;
+    const previousTop = body.style.top;
+    const previousWidth = body.style.width;
+    const previousOverflow = body.style.overflow;
+
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+    body.style.overflow = 'hidden';
+
+    return () => {
+      body.style.position = previousPosition;
+      body.style.top = previousTop;
+      body.style.width = previousWidth;
+      body.style.overflow = previousOverflow;
+      window.scrollTo(0, scrollY);
+    };
+  }, [isLocked]);
+}
+
 function IntroSection() {
   return (
     <SectionShell className="intro-grid">
@@ -188,6 +214,8 @@ function ZonesSection() {
   const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
   const shouldAnimateCards = useMediaQuery('(min-width: 1025px)');
 
+  useBodyScrollLock(Boolean(selectedZone));
+
   useEffect(() => {
     if (!selectedZone) return;
 
@@ -282,6 +310,8 @@ function LineupSection() {
     return [...knownPeople, ...placeholders].slice(0, 5);
   }, [activeCategory]);
 
+  useBodyScrollLock(Boolean(selectedPerson));
+
   useEffect(() => {
     if (!selectedPerson) return;
 
@@ -289,13 +319,9 @@ function LineupSection() {
       if (event.key === 'Escape') setSelectedPerson(null);
     };
 
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', closeOnEscape);
 
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', closeOnEscape);
-    };
+    return () => window.removeEventListener('keydown', closeOnEscape);
   }, [selectedPerson]);
 
   return (
