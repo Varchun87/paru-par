@@ -1351,10 +1351,10 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 
 .lineup-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(118px, 150px));
-  justify-content: space-between;
-  gap: 36px 18px;
-  width: min(760px, 100%);
+  grid-template-columns: repeat(5, minmax(150px, 184px));
+  justify-content: center;
+  gap: clamp(28px, 2.4vw, 38px);
+  width: min(1060px, 100%);
   margin: 0 auto;
   align-items: start;
 }
@@ -1363,7 +1363,8 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   border: 0;
   padding: 0;
   display: grid;
-  grid-template-rows: 150px auto;
+  grid-template-rows: auto auto;
+  justify-items: center;
   align-items: start;
   background: transparent;
   color: inherit;
@@ -1383,10 +1384,10 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
 .lineup-card[hidden] { display: none; }
 
 .lineup-photo {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  max-width: 184px;
   aspect-ratio: 1;
-  border-radius: 10px;
+  border-radius: 16px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1403,10 +1404,10 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   min-height: 44px;
   display: grid;
   place-items: start center;
-  margin: 12px 0 0;
+  margin: 16px 0 0;
   color: var(--gold);
   font-family: var(--font-body);
-  font-size: clamp(15px, 1.6vw, 20px);
+  font-size: clamp(18px, 1.55vw, 23px);
   font-weight: 950;
   text-transform: uppercase;
   letter-spacing: .04em;
@@ -2097,7 +2098,7 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .day-grid, .people-grid, .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-grid { grid-auto-rows: 240px; }
   .zone-grid { grid-template-columns: repeat(2, 1fr); }
-  .lineup-grid { grid-template-columns: repeat(3, 1fr); }
+  .lineup-grid { grid-template-columns: repeat(3, minmax(150px, 184px)); gap: 28px; justify-content: center; }
   .contact-grid { grid-template-columns: repeat(2, 1fr); }
   .ticket-shop-grid { grid-template-columns: 1fr; }
   .countdown-section { padding-bottom: 34px; }
@@ -2141,7 +2142,8 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .day-grid, .zone-grid, .people-grid, .gallery-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-auto-rows: 250px; }
   .lineup-grid { grid-template-columns: repeat(2, 1fr); }
-  .lineup-card { grid-template-rows: 150px auto; justify-items: center; }
+  .lineup-card { grid-template-rows: auto auto; justify-items: center; }
+  .lineup-photo { max-width: min(184px, 100%); }
   .contact-grid { grid-template-columns: 1fr; }
   .ticket-list { grid-template-columns: 1fr; }
   .zone-card { min-height: 250px; aspect-ratio: auto; }
