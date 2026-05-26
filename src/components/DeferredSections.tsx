@@ -213,9 +213,7 @@ function DaysSection() {
 
 function ZonesSection() {
   const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
-  const [hasZoneCardsAnimated, setHasZoneCardsAnimated] = useState(false);
   const shouldAnimateCards = useMediaQuery('(min-width: 1025px)');
-  const shouldRunZoneCardAnimation = shouldAnimateCards && !hasZoneCardsAnimated;
 
   useBodyScrollLock(Boolean(selectedZone));
 
@@ -238,18 +236,17 @@ function ZonesSection() {
       </div>
       <motion.div
         className="zone-grid"
-        variants={shouldRunZoneCardAnimation ? zoneGridVariants : undefined}
-        initial={shouldRunZoneCardAnimation ? 'hidden' : false}
-        whileInView={shouldRunZoneCardAnimation ? 'visible' : undefined}
-        viewport={shouldRunZoneCardAnimation ? { once: true, amount: 0.18, margin: '0px 0px -10% 0px' } : undefined}
-        onViewportEnter={() => window.setTimeout(() => setHasZoneCardsAnimated(true), 950)}
+        variants={shouldAnimateCards ? zoneGridVariants : undefined}
+        initial={shouldAnimateCards ? 'hidden' : false}
+        whileInView={shouldAnimateCards ? 'visible' : undefined}
+        viewport={shouldAnimateCards ? { once: true, amount: 0.18, margin: '0px 0px -10% 0px' } : undefined}
       >
         {zones.map((zone, index) => (
           <motion.button
             className={`zone-card ${getZoneCardClassName(zone.name)}`}
             type="button"
             custom={index}
-            variants={shouldRunZoneCardAnimation ? zoneCardVariants : undefined}
+            variants={shouldAnimateCards ? zoneCardVariants : undefined}
             style={{ backgroundImage: backgroundImage(zone.image) }}
             onClick={() => setSelectedZone(zone)}
             key={zone.name}

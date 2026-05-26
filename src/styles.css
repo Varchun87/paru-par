@@ -2163,12 +2163,13 @@ p { color: rgba(255, 244, 223, .78); line-height: var(--leading); letter-spacing
   .lineup-modal-backdrop { padding: 18px 12px; }
   .lineup-modal-close { left: 18px; top: auto; bottom: 18px; width: 58px; height: 58px; font-size: 40px; transform: none; }
   .lineup-modal-close:hover { transform: scale(1.04); }
-  .countdown-card, .report-card { min-height: 420px; }
-  .polaroids { inset: 100px 8px 26px; gap: 0; }
-  .polaroids span { flex-basis: 40%; max-width: 40%; margin: 0 -3.8%; border-width: 4px; border-radius: 16px; }
-  .polaroids span:nth-child(1) { transform: rotate(-7deg) translate(7%, 14px); }
-  .polaroids span:nth-child(2) { flex-basis: 46%; max-width: 46%; transform: rotate(.8deg) translateY(-8px); }
-  .polaroids span:nth-child(3) { transform: rotate(7deg) translate(-7%, 14px); }
+  .countdown-card { min-height: 410px; }
+  .report-card { min-height: 350px; }
+  .polaroids { inset: 76px 6px 20px; gap: 0; }
+  .polaroids span { flex-basis: 43%; max-width: 43%; margin: 0 -5.5%; border-width: 3px; border-radius: 14px; }
+  .polaroids span:nth-child(1) { transform: rotate(-8deg) translate(9%, 12px); }
+  .polaroids span:nth-child(2) { flex-basis: 50%; max-width: 50%; transform: rotate(.8deg) translateY(-10px); }
+  .polaroids span:nth-child(3) { transform: rotate(8deg) translate(-9%, 12px); }
   .day-card:nth-child(1), .day-card:nth-child(2), .day-card:nth-child(3), .person-card:nth-child(even), .host-card:nth-child(2) { transform: none; }
   .split-media, .image-card.tall, .image-card, .host-card { min-height: 360px; }
   .tickets { padding: 28px; }
